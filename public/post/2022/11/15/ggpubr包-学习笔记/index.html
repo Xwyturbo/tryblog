@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>ggpubr包--学习笔记 - My Website</title>
+    <meta property="og:title" content="ggpubr包--学习笔记 - My Website">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/">My Website</a></h1>
+
+<p class="tagline">小徐同学参考了谢益辉大神的blog，也尝试记录自己的生活</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">Home</a></li>
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/categories/">Categories</a></li>
+  
+  <li><a href="/tags/">Tags</a></li>
+  
+  <li><a href="/index.xml">Subscribe</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>ggpubr包--学习笔记</h1>
+
+<h3>Xwyturbo
+  /  2022-11-15</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="/rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="/rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+<h1 id="1r包的安装及加载">1.R包的安装及加载</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#install.packages(&#34;ggpubr&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span></code></pre></div><pre><code>## Loading required package: ggplot2
+</code></pre>
+<h1 id="2常用基本图形的绘制">2.常用基本图形的绘制</h1>
+<h2 id="21带有均值线和地毯线的密度图">2.1带有均值线和地毯线的密度图</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#构建数据集set.seed(1234)</span>
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">data.frame</span>( sex<span style="color:#f92672">=</span><span style="color:#a6e22e">factor</span>(<span style="color:#a6e22e">rep</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;f&#34;</span>, <span style="color:#e6db74">&#34;M&#34;</span>), each<span style="color:#f92672">=</span><span style="color:#ae81ff">200</span>)),
+</span></span><span style="display:flex;"><span>                 weight<span style="color:#f92672">=</span><span style="color:#a6e22e">c</span>(<span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">55</span>), <span style="color:#a6e22e">rnorm</span>(<span style="color:#ae81ff">200</span>, <span style="color:#ae81ff">58</span>)))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 预览数据格式</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df)
+</span></span></code></pre></div><pre><code>##   sex   weight
+## 1   f 56.91919
+## 2   f 54.36798
+## 3   f 55.84918
+## 4   f 53.27499
+## 5   f 55.45501
+## 6   f 52.86464
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 绘制密度图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># rug参数添加地毯线，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add参数可以添加均值mean和中位数median，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 按性别”sex“分组标记边框线颜色和填充色，使用palette参数自定义颜色</span>
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdensity</span>(df, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;weight&#34;</span>, add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mean&#34;</span>, rug <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>, 
+</span></span><span style="display:flex;"><span>                fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>,palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>)) 
+</span></span><span style="display:flex;"><span>p1
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p11 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdensity</span>(df, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;weight&#34;</span>,facet.by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>,
+</span></span><span style="display:flex;"><span>                add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mean&#34;</span>, rug <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>, 
+</span></span><span style="display:flex;"><span>                fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>,palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>)) 
+</span></span><span style="display:flex;"><span>p11
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-2-2.png" width="672" />
+<h2 id="22带有均值线和边际地毯线的直方图">2.2带有均值线和边际地毯线的直方图</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gghistogram</span>(df, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;weight&#34;</span>, 
+</span></span><span style="display:flex;"><span>                  add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mean&#34;</span>, rug <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>, 
+</span></span><span style="display:flex;"><span>                  fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>,palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>))
+</span></span></code></pre></div><pre><code>## Warning: Using `bins = 30` by default. Pick better value with the argument
+## `bins`.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p2
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p22 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">gghistogram</span>(df, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;weight&#34;</span>,facet.by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>, 
+</span></span><span style="display:flex;"><span>                  add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mean&#34;</span>, rug <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>, 
+</span></span><span style="display:flex;"><span>                  fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sex&#34;</span>,palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>))
+</span></span></code></pre></div><pre><code>## Warning: Using `bins = 30` by default. Pick better value with the argument
+## `bins`.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p22
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-3-2.png" width="672" />
+<h2 id="23箱线图分组形状统计">2.3箱线图+分组形状+统计</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(datasets)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(ToothGrowth)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(ToothGrowth)
+</span></span></code></pre></div><pre><code>## 'data.frame':    60 obs. of  3 variables:
+##  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
+##  $ supp: Factor w/ 2 levels &quot;OJ&quot;,&quot;VC&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(ToothGrowth)
+</span></span></code></pre></div><pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#jitter参数添加扰动点，点的形状shape由dose变量映射</span>
+</span></span><span style="display:flex;"><span>p3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggboxplot</span>(ToothGrowth, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dose&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;len&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>,
+</span></span><span style="display:flex;"><span>              palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>),
+</span></span><span style="display:flex;"><span>              add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jitter&#34;</span>, shape<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dose&#34;</span>) 
+</span></span><span style="display:flex;"><span>p3
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p32 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggboxplot</span>(ToothGrowth, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dose&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;len&#34;</span>,facet.by <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>,
+</span></span><span style="display:flex;"><span>                 color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>,
+</span></span><span style="display:flex;"><span>              palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>),
+</span></span><span style="display:flex;"><span>              add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jitter&#34;</span>, shape<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dose&#34;</span>) 
+</span></span><span style="display:flex;"><span>p32
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-4-2.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># stat_compare_means参数比较不同组之间的均值，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 并增加不同组间比较的p-value值，可以自定义需要标注的组间比较</span>
+</span></span><span style="display:flex;"><span>my_comparisons <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">list</span>(<span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;0.5&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>), <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>), <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;0.5&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>))
+</span></span><span style="display:flex;"><span>p4 <span style="color:#f92672">&lt;-</span> p3 <span style="color:#f92672">+</span> <span style="color:#a6e22e">stat_compare_means</span>(comparisons <span style="color:#f92672">=</span> my_comparisons)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">stat_compare_means</span>(label.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span>p4
+</span></span></code></pre></div><pre><code>## Warning in wilcox.test.default(c(4.2, 11.5, 7.3, 5.8, 6.4, 10, 11.2, 11.2, :
+## cannot compute exact p-value with ties
+
+## Warning in wilcox.test.default(c(4.2, 11.5, 7.3, 5.8, 6.4, 10, 11.2, 11.2, :
+## cannot compute exact p-value with ties
+
+## Warning in wilcox.test.default(c(16.5, 16.5, 15.2, 17.3, 22.5, 17.3, 13.6, :
+## cannot compute exact p-value with ties
+</code></pre>
+<img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-4-3.png" width="672" />
+<h2 id="24内有箱线图的小提琴图星标记">2.4内有箱线图的小提琴图+星标记</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(datasets)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(ToothGrowth)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(ToothGrowth)
+</span></span></code></pre></div><pre><code>## 'data.frame':    60 obs. of  3 variables:
+##  $ len : num  4.2 11.5 7.3 5.8 6.4 10 11.2 11.2 5.2 7 ...
+##  $ supp: Factor w/ 2 levels &quot;OJ&quot;,&quot;VC&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ dose: num  0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 ...
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(ToothGrowth)
+</span></span></code></pre></div><pre><code>##    len supp dose
+## 1  4.2   VC  0.5
+## 2 11.5   VC  0.5
+## 3  7.3   VC  0.5
+## 4  5.8   VC  0.5
+## 5  6.4   VC  0.5
+## 6 10.0   VC  0.5
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># add = “boxplot”添加箱线图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># stat_compare_means中设置lable=”p.signif”，</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 即可添加星添加组间比较连线和统计P值按星分类</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add添加箱线图，label标注选择显著性标记（星号）</span>
+</span></span><span style="display:flex;"><span>p5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggviolin</span>(ToothGrowth, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dose&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;len&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>,
+</span></span><span style="display:flex;"><span>        palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>),
+</span></span><span style="display:flex;"><span>        add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;boxplot&#34;</span>, add.params <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(fill<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;white&#34;</span>))<span style="color:#f92672">+</span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">stat_compare_means</span>(comparisons <span style="color:#f92672">=</span> my_comparisons, label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;p.signif&#34;</span>) <span style="color:#f92672">+</span>         
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">stat_compare_means</span>(label.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>)
+</span></span><span style="display:flex;"><span> p5
+</span></span></code></pre></div><pre><code>## Warning in wilcox.test.default(c(4.2, 11.5, 7.3, 5.8, 6.4, 10, 11.2, 11.2, :
+## cannot compute exact p-value with ties
+
+## Warning in wilcox.test.default(c(4.2, 11.5, 7.3, 5.8, 6.4, 10, 11.2, 11.2, :
+## cannot compute exact p-value with ties
+
+## Warning in wilcox.test.default(c(16.5, 16.5, 15.2, 17.3, 22.5, 17.3, 13.6, :
+## cannot compute exact p-value with ties
+</code></pre>
+<img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<h2 id="25条形柱状图绘制barplot">2.5条形/柱状图绘制(barplot)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载数据集</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;mtcars&#34;</span>)
+</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> mtcars
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 设置因子变量</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>cyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(df2<span style="color:#f92672">$</span>cyl)
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>name <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rownames</span>(df2) <span style="color:#75715e">#添加一新列name</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df2[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>, <span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>)])
+</span></span></code></pre></div><pre><code>##                                name    wt  mpg cyl
+## Mazda RX4                 Mazda RX4 2.620 21.0   6
+## Mazda RX4 Wag         Mazda RX4 Wag 2.875 21.0   6
+## Datsun 710               Datsun 710 2.320 22.8   4
+## Hornet 4 Drive       Hornet 4 Drive 3.215 21.4   6
+## Hornet Sportabout Hornet Sportabout 3.440 18.7   8
+## Valiant                     Valiant 3.460 18.1   6
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 颜色按nature配色方法(支持 ggsci包中的本色方案 ，如: “npg”, “aaas”, “lancet”, “jco”, “ucscgb”, “uchicago”, “simpsons” and “rickandmorty”)</span>
+</span></span><span style="display:flex;"><span>  p6 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggbarplot</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>           palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;npg&#34;</span>, <span style="color:#75715e">#杂志nature的配色         </span>
+</span></span><span style="display:flex;"><span>           sort.val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;desc&#34;</span>, <span style="color:#75715e">#降序排序         </span>
+</span></span><span style="display:flex;"><span>           sort.by.groups<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>, <span style="color:#75715e">#不按组排序         </span>
+</span></span><span style="display:flex;"><span>           x.text.angle<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
+</span></span><span style="display:flex;"><span> p6
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span> <span style="color:#75715e"># 按组进行排序</span>
+</span></span><span style="display:flex;"><span> p7 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggbarplot</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>           palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aaas&#34;</span>, <span style="color:#75715e">#杂志Science的配色</span>
+</span></span><span style="display:flex;"><span>           sort.val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;asc&#34;</span>, <span style="color:#75715e">#升序排序,区别于desc         </span>
+</span></span><span style="display:flex;"><span>           sort.by.groups<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>,x.text.angle<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>)
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">#按组排序x.text.angl设置x轴标签旋转角度</span>
+</span></span><span style="display:flex;"><span> p7
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-6-2.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 偏差图绘制(Deviation graphs),偏差图展示了与参考值之间的偏差。</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_z <span style="color:#f92672">&lt;-</span> (df2<span style="color:#f92672">$</span>mpg<span style="color:#f92672">-</span><span style="color:#a6e22e">mean</span>(df2<span style="color:#f92672">$</span>mpg))<span style="color:#f92672">/</span><span style="color:#a6e22e">sd</span>(df2<span style="color:#f92672">$</span>mpg)    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 相当于Zscore标准化，减均值，除标准差</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_grp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(<span style="color:#a6e22e">ifelse</span>(df2<span style="color:#f92672">$</span>mpg_z<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>), 
+</span></span><span style="display:flex;"><span>                      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#设置分组因子</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">head</span>(df2[, <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;wt&#34;</span>, <span style="color:#e6db74">&#34;mpg&#34;</span>, <span style="color:#e6db74">&#34;mpg_grp&#34;</span>, <span style="color:#e6db74">&#34;cyl&#34;</span>)])
+</span></span></code></pre></div><pre><code>##                                name    wt  mpg mpg_grp cyl
+## Mazda RX4                 Mazda RX4 2.620 21.0    high   6
+## Mazda RX4 Wag         Mazda RX4 Wag 2.875 21.0    high   6
+## Datsun 710               Datsun 710 2.320 22.8    high   4
+## Hornet 4 Drive       Hornet 4 Drive 3.215 21.4    high   6
+## Hornet Sportabout Hornet Sportabout 3.440 18.7     low   8
+## Valiant                     Valiant 3.460 18.1     low   6
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p8 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggbarplot</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg_z&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg_grp&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>        palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jco&#34;</span>, sort.val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;asc&#34;</span>, sort.by.groups <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,                  
+</span></span><span style="display:flex;"><span>        x.text.angle<span style="color:#f92672">=</span><span style="color:#ae81ff">60</span>, ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MPG z-score&#34;</span>, xlab <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>p8
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-6-3.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># rotate设置x/y轴对换</span>
+</span></span><span style="display:flex;"><span>p9 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggbarplot</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg_z&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg_grp&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>         palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jco&#34;</span>, sort.val <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;desc&#34;</span>, sort.by.groups <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>         x.text.angle<span style="color:#f92672">=</span><span style="color:#ae81ff">90</span>, ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MPG z-score&#34;</span>, xlab <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>, 
+</span></span><span style="display:flex;"><span>         rotate<span style="color:#f92672">=</span><span style="color:#66d9ef">TRUE</span>, ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_minimal</span>())   
+</span></span><span style="display:flex;"><span>p9
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-6-4.png" width="672" />
+<h2 id="26棒棒糖图绘制lollipop-chart棒棒图可以代替条形图展示数据">2.6棒棒糖图绘制(Lollipop chart),棒棒图可以代替条形图展示数据</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(plotly)
+</span></span></code></pre></div><pre><code>## 
+## Attaching package: 'plotly'
+
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+
+## The following object is masked from 'package:stats':
+## 
+##     filter
+
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 加载数据集</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;mtcars&#34;</span>)
+</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> mtcars
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>cyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(df2<span style="color:#f92672">$</span>cyl)
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>name <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rownames</span>(df2) <span style="color:#75715e">#添加一新列name</span>
+</span></span><span style="display:flex;"><span>p10 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdotchart</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>,
+</span></span><span style="display:flex;"><span>          palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>),          
+</span></span><span style="display:flex;"><span>          sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ascending&#34;</span>,          
+</span></span><span style="display:flex;"><span>          add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;segments&#34;</span>, ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_pubr</span>())
+</span></span><span style="display:flex;"><span>p10
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 设置其他参数, dot.size = 6调整糖的大小，添加label标签，设置字体样式和方向</span>
+</span></span><span style="display:flex;"><span>p11 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdotchart</span>(df2, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mpg&#34;</span>, color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, 
+</span></span><span style="display:flex;"><span>         palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>),          
+</span></span><span style="display:flex;"><span>         sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;descending&#34;</span>, add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;segments&#34;</span>, rotate <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>         group <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, dot.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>,          
+</span></span><span style="display:flex;"><span>         label <span style="color:#f92672">=</span> <span style="color:#a6e22e">round</span>(df2<span style="color:#f92672">$</span>mpg), font.label <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(color<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;white&#34;</span>,
+</span></span><span style="display:flex;"><span>         size<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span>, vjust<span style="color:#f92672">=</span><span style="color:#ae81ff">0.5</span>), ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_pubr</span>())
+</span></span><span style="display:flex;"><span>p11
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-7-2.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 偏差图绘制(Deviation graphs),偏差图展示了与参考值之间的偏差。</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_z <span style="color:#f92672">&lt;-</span> (df2<span style="color:#f92672">$</span>mpg<span style="color:#f92672">-</span><span style="color:#a6e22e">mean</span>(df2<span style="color:#f92672">$</span>mpg))<span style="color:#f92672">/</span><span style="color:#a6e22e">sd</span>(df2<span style="color:#f92672">$</span>mpg)    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 相当于Zscore标准化，减均值，除标准差</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_grp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(<span style="color:#a6e22e">ifelse</span>(df2<span style="color:#f92672">$</span>mpg_z<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>), 
+</span></span><span style="display:flex;"><span>                      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#棒棒糖偏差图</span>
+</span></span><span style="display:flex;"><span>p12 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdotchart</span>(df2, x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span>, y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg_z&#34;</span>,
+</span></span><span style="display:flex;"><span>                    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#75715e"># Color by groups                    </span>
+</span></span><span style="display:flex;"><span>                    palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>), 
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e"># Custom color palette   </span>
+</span></span><span style="display:flex;"><span>                    sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;descending&#34;</span>, <span style="color:#75715e"># Sort value in descending order               </span>
+</span></span><span style="display:flex;"><span>                    add <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;segments&#34;</span>, <span style="color:#75715e"># Add segments from y = 0 to dots                    </span>
+</span></span><span style="display:flex;"><span>                    add.params <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lightgray&#34;</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>),
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e"># Change segment color and size                    </span>
+</span></span><span style="display:flex;"><span>                    group <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#75715e"># Order by groups                   </span>
+</span></span><span style="display:flex;"><span>                    dot.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>, <span style="color:#75715e"># Large dot size                    </span>
+</span></span><span style="display:flex;"><span>                    label <span style="color:#f92672">=</span> <span style="color:#a6e22e">round</span>(df2<span style="color:#f92672">$</span>mpg_z,<span style="color:#ae81ff">1</span>), 
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e"># Add mpg values as dot labels，设置一位小数                    </span>
+</span></span><span style="display:flex;"><span>                    font.label <span style="color:#f92672">=</span> <span style="color:#a6e22e">list</span>(color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;white&#34;</span>, size <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>, vjust <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span>),
+</span></span><span style="display:flex;"><span>                  <span style="color:#75715e"># Adjust label parameters                    </span>
+</span></span><span style="display:flex;"><span>                    ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_pubr</span>()) <span style="color:#f92672">+</span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">geom_hline</span>(yintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, linetype <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>                               color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lightgray&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ggplotly</span>(p12)
+</span></span></code></pre></div><pre><code>## Warning: `gather_()` was deprecated in tidyr 1.2.0.
+## ℹ Please use `gather()` instead.
+## ℹ The deprecated feature was likely used in the plotly package.
+##   Please report the issue at &lt;]8;;https://github.com/plotly/plotly.R/issueshttps://github.com/plotly/plotly.R/issues]8;;&gt;.
+</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"data":[{"x":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],"y":[2.29127161552575,2.04238943053993,1.7105465172255,1.7105465172255,1.19619000158812,0.980492107933741,0.715017777282194,0.449543446630647,0.449543446630647,0.233845552976265,0.217253407310543,0.217253407310543,0.150884824647657,0.150884824647657,-0.0648130690067253,-0.147773797335334,-0.330287399658272,-0.380063836655437,-0.147773797335334,-0.230734525663942,-0.463024564984046,-0.612353875975541,-0.711906749969871,-0.761683186967036,-0.811459623964201,-0.811459623964201,-0.844643915295645,-0.89442035229281,-0.960788934955696,-1.12671039161291,-1.60788261591884,-1.60788261591884],"text":["name: Toyota Corolla<br />mpg_z:  2.29127162<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  2.29127162<br />cyl: 4","name: Fiat 128<br />mpg_z:  2.04238943<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  2.04238943<br />cyl: 4","name: Honda Civic<br />mpg_z:  1.71054652<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  1.71054652<br />cyl: 4","name: Lotus Europa<br />mpg_z:  1.71054652<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  1.71054652<br />cyl: 4","name: Fiat X1-9<br />mpg_z:  1.19619000<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  1.19619000<br />cyl: 4","name: Porsche 914-2<br />mpg_z:  0.98049211<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.98049211<br />cyl: 4","name: Merc 240D<br />mpg_z:  0.71501778<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.71501778<br />cyl: 4","name: Datsun 710<br />mpg_z:  0.44954345<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.44954345<br />cyl: 4","name: Merc 230<br />mpg_z:  0.44954345<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.44954345<br />cyl: 4","name: Toyota Corona<br />mpg_z:  0.23384555<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.23384555<br />cyl: 4","name: Volvo 142E<br />mpg_z:  0.21725341<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.21725341<br />cyl: 4","name: Hornet 4 Drive<br />mpg_z:  0.21725341<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.21725341<br />cyl: 6","name: Mazda RX4<br />mpg_z:  0.15088482<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.15088482<br />cyl: 6","name: Mazda RX4 Wag<br />mpg_z:  0.15088482<br />cyl: lightgray<br />ymin: 0<br />mpg_z:  0.15088482<br />cyl: 6","name: Ferrari Dino<br />mpg_z: -0.06481307<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.06481307<br />cyl: 6","name: Merc 280<br />mpg_z: -0.14777380<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.14777380<br />cyl: 6","name: Valiant<br />mpg_z: -0.33028740<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.33028740<br />cyl: 6","name: Merc 280C<br />mpg_z: -0.38006384<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.38006384<br />cyl: 6","name: Pontiac Firebird<br />mpg_z: -0.14777380<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.14777380<br />cyl: 8","name: Hornet Sportabout<br />mpg_z: -0.23073453<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.23073453<br />cyl: 8","name: Merc 450SL<br />mpg_z: -0.46302456<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.46302456<br />cyl: 8","name: Merc 450SE<br />mpg_z: -0.61235388<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.61235388<br />cyl: 8","name: Ford Pantera L<br />mpg_z: -0.71190675<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.71190675<br />cyl: 8","name: Dodge Challenger<br />mpg_z: -0.76168319<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.76168319<br />cyl: 8","name: Merc 450SLC<br />mpg_z: -0.81145962<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.81145962<br />cyl: 8","name: AMC Javelin<br />mpg_z: -0.81145962<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.81145962<br />cyl: 8","name: Maserati Bora<br />mpg_z: -0.84464392<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.84464392<br />cyl: 8","name: Chrysler Imperial<br />mpg_z: -0.89442035<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.89442035<br />cyl: 8","name: Duster 360<br />mpg_z: -0.96078893<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -0.96078893<br />cyl: 8","name: Camaro Z28<br />mpg_z: -1.12671039<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -1.12671039<br />cyl: 8","name: Cadillac Fleetwood<br />mpg_z: -1.60788262<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -1.60788262<br />cyl: 8","name: Lincoln Continental<br />mpg_z: -1.60788262<br />cyl: lightgray<br />ymin: 0<br />mpg_z: -1.60788262<br />cyl: 8"],"type":"scatter","mode":"lines","opacity":1,"line":{"color":"transparent"},"error_y":{"array":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"arrayminus":[2.29127161552575,2.04238943053993,1.7105465172255,1.7105465172255,1.19619000158812,0.980492107933741,0.715017777282194,0.449543446630647,0.449543446630647,0.233845552976265,0.217253407310543,0.217253407310543,0.150884824647657,0.150884824647657,-0.0648130690067253,-0.147773797335334,-0.330287399658272,-0.380063836655437,-0.147773797335334,-0.230734525663942,-0.463024564984046,-0.612353875975541,-0.711906749969871,-0.761683186967036,-0.811459623964201,-0.811459623964201,-0.844643915295645,-0.89442035229281,-0.960788934955696,-1.12671039161291,-1.60788261591884,-1.60788261591884],"type":"data","width":0,"symmetric":false,"color":"rgba(211,211,211,1)"},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,2,3,4,5,6,7,8,9,10,11],"y":[2.29127161552575,2.04238943053993,1.7105465172255,1.7105465172255,1.19619000158812,0.980492107933741,0.715017777282194,0.449543446630647,0.449543446630647,0.233845552976265,0.217253407310543],"text":["name: Toyota Corolla<br />mpg_z:  2.29127162<br />cyl: 4","name: Fiat 128<br />mpg_z:  2.04238943<br />cyl: 4","name: Honda Civic<br />mpg_z:  1.71054652<br />cyl: 4","name: Lotus Europa<br />mpg_z:  1.71054652<br />cyl: 4","name: Fiat X1-9<br />mpg_z:  1.19619000<br />cyl: 4","name: Porsche 914-2<br />mpg_z:  0.98049211<br />cyl: 4","name: Merc 240D<br />mpg_z:  0.71501778<br />cyl: 4","name: Datsun 710<br />mpg_z:  0.44954345<br />cyl: 4","name: Merc 230<br />mpg_z:  0.44954345<br />cyl: 4","name: Toyota Corona<br />mpg_z:  0.23384555<br />cyl: 4","name: Volvo 142E<br />mpg_z:  0.21725341<br />cyl: 4"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,175,187,1)","opacity":1,"size":22.6771653543307,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,175,187,1)"}},"hoveron":"points","name":"(4,1)","legendgroup":"(4,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[12,13,14,15,16,17,18],"y":[0.217253407310543,0.150884824647657,0.150884824647657,-0.0648130690067253,-0.147773797335334,-0.330287399658272,-0.380063836655437],"text":["name: Hornet 4 Drive<br />mpg_z:  0.21725341<br />cyl: 6","name: Mazda RX4<br />mpg_z:  0.15088482<br />cyl: 6","name: Mazda RX4 Wag<br />mpg_z:  0.15088482<br />cyl: 6","name: Ferrari Dino<br />mpg_z: -0.06481307<br />cyl: 6","name: Merc 280<br />mpg_z: -0.14777380<br />cyl: 6","name: Valiant<br />mpg_z: -0.33028740<br />cyl: 6","name: Merc 280C<br />mpg_z: -0.38006384<br />cyl: 6"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(231,184,0,1)","opacity":1,"size":22.6771653543307,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(231,184,0,1)"}},"hoveron":"points","name":"(6,1)","legendgroup":"(6,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[19,20,21,22,23,24,25,26,27,28,29,30,31,32],"y":[-0.147773797335334,-0.230734525663942,-0.463024564984046,-0.612353875975541,-0.711906749969871,-0.761683186967036,-0.811459623964201,-0.811459623964201,-0.844643915295645,-0.89442035229281,-0.960788934955696,-1.12671039161291,-1.60788261591884,-1.60788261591884],"text":["name: Pontiac Firebird<br />mpg_z: -0.14777380<br />cyl: 8","name: Hornet Sportabout<br />mpg_z: -0.23073453<br />cyl: 8","name: Merc 450SL<br />mpg_z: -0.46302456<br />cyl: 8","name: Merc 450SE<br />mpg_z: -0.61235388<br />cyl: 8","name: Ford Pantera L<br />mpg_z: -0.71190675<br />cyl: 8","name: Dodge Challenger<br />mpg_z: -0.76168319<br />cyl: 8","name: Merc 450SLC<br />mpg_z: -0.81145962<br />cyl: 8","name: AMC Javelin<br />mpg_z: -0.81145962<br />cyl: 8","name: Maserati Bora<br />mpg_z: -0.84464392<br />cyl: 8","name: Chrysler Imperial<br />mpg_z: -0.89442035<br />cyl: 8","name: Duster 360<br />mpg_z: -0.96078893<br />cyl: 8","name: Camaro Z28<br />mpg_z: -1.12671039<br />cyl: 8","name: Cadillac Fleetwood<br />mpg_z: -1.60788262<br />cyl: 8","name: Lincoln Continental<br />mpg_z: -1.60788262<br />cyl: 8"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(252,78,7,1)","opacity":1,"size":22.6771653543307,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(252,78,7,1)"}},"hoveron":"points","name":"(8,1)","legendgroup":"(8,1)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[13,14,8,12,20,17,29,7,9,16,18,22,21,25,31,32,28,2,3,1,10,24,26,30,19,5,6,4,23,15,27,11],"y":[0.150884824647657,0.150884824647657,0.449543446630647,0.217253407310543,-0.230734525663942,-0.330287399658272,-0.960788934955696,0.715017777282194,0.449543446630647,-0.147773797335334,-0.380063836655437,-0.612353875975541,-0.463024564984046,-0.811459623964201,-1.60788261591884,-1.60788261591884,-0.89442035229281,2.04238943053993,1.7105465172255,2.29127161552575,0.233845552976265,-0.761683186967036,-0.811459623964201,-1.12671039161291,-0.147773797335334,1.19619000158812,0.980492107933741,1.7105465172255,-0.711906749969871,-0.0648130690067253,-0.844643915295645,0.217253407310543],"text":[0.2,0.2,0.4,0.2,-0.2,-0.3,-1,0.7,0.4,-0.1,-0.4,-0.6,-0.5,-0.8,-1.6,-1.6,-0.9,2,1.7,2.3,0.2,-0.8,-0.8,-1.1,-0.1,1.2,1,1.7,-0.7,-0.1,-0.8,0.2],"hovertext":["name: Mazda RX4<br />mpg_z:  0.15088482<br />label.xx:  0.2","name: Mazda RX4 Wag<br />mpg_z:  0.15088482<br />label.xx:  0.2","name: Datsun 710<br />mpg_z:  0.44954345<br />label.xx:  0.4","name: Hornet 4 Drive<br />mpg_z:  0.21725341<br />label.xx:  0.2","name: Hornet Sportabout<br />mpg_z: -0.23073453<br />label.xx: -0.2","name: Valiant<br />mpg_z: -0.33028740<br />label.xx: -0.3","name: Duster 360<br />mpg_z: -0.96078893<br />label.xx: -1.0","name: Merc 240D<br />mpg_z:  0.71501778<br />label.xx:  0.7","name: Merc 230<br />mpg_z:  0.44954345<br />label.xx:  0.4","name: Merc 280<br />mpg_z: -0.14777380<br />label.xx: -0.1","name: Merc 280C<br />mpg_z: -0.38006384<br />label.xx: -0.4","name: Merc 450SE<br />mpg_z: -0.61235388<br />label.xx: -0.6","name: Merc 450SL<br />mpg_z: -0.46302456<br />label.xx: -0.5","name: Merc 450SLC<br />mpg_z: -0.81145962<br />label.xx: -0.8","name: Cadillac Fleetwood<br />mpg_z: -1.60788262<br />label.xx: -1.6","name: Lincoln Continental<br />mpg_z: -1.60788262<br />label.xx: -1.6","name: Chrysler Imperial<br />mpg_z: -0.89442035<br />label.xx: -0.9","name: Fiat 128<br />mpg_z:  2.04238943<br />label.xx:  2.0","name: Honda Civic<br />mpg_z:  1.71054652<br />label.xx:  1.7","name: Toyota Corolla<br />mpg_z:  2.29127162<br />label.xx:  2.3","name: Toyota Corona<br />mpg_z:  0.23384555<br />label.xx:  0.2","name: Dodge Challenger<br />mpg_z: -0.76168319<br />label.xx: -0.8","name: AMC Javelin<br />mpg_z: -0.81145962<br />label.xx: -0.8","name: Camaro Z28<br />mpg_z: -1.12671039<br />label.xx: -1.1","name: Pontiac Firebird<br />mpg_z: -0.14777380<br />label.xx: -0.1","name: Fiat X1-9<br />mpg_z:  1.19619000<br />label.xx:  1.2","name: Porsche 914-2<br />mpg_z:  0.98049211<br />label.xx:  1.0","name: Lotus Europa<br />mpg_z:  1.71054652<br />label.xx:  1.7","name: Ford Pantera L<br />mpg_z: -0.71190675<br />label.xx: -0.7","name: Ferrari Dino<br />mpg_z: -0.06481307<br />label.xx: -0.1","name: Maserati Bora<br />mpg_z: -0.84464392<br />label.xx: -0.8","name: Volvo 142E<br />mpg_z:  0.21725341<br />label.xx:  0.2"],"textfont":{"size":11.3385826771654,"color":"rgba(255,255,255,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.4,32.6],"y":[0,0],"text":"yintercept: 0","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(211,211,211,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":27.1581569115816,"r":7.97011207970112,"b":182.515566625156,"l":43.8356164383562},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,32.6],"tickmode":"array","ticktext":["Toyota Corolla","Fiat 128","Honda Civic","Lotus Europa","Fiat X1-9","Porsche 914-2","Merc 240D","Datsun 710","Merc 230","Toyota Corona","Volvo 142E","Hornet 4 Drive","Mazda RX4","Mazda RX4 Wag","Ferrari Dino","Merc 280","Valiant","Merc 280C","Pontiac Firebird","Hornet Sportabout","Merc 450SL","Merc 450SE","Ford Pantera L","Dodge Challenger","Merc 450SLC","AMC Javelin","Maserati Bora","Chrysler Imperial","Duster 360","Camaro Z28","Cadillac Fleetwood","Lincoln Continental"],"tickvals":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32],"categoryorder":"array","categoryarray":["Toyota Corolla","Fiat 128","Honda Civic","Lotus Europa","Fiat X1-9","Porsche 914-2","Merc 240D","Datsun 710","Merc 230","Toyota Corona","Volvo 142E","Hornet 4 Drive","Mazda RX4","Mazda RX4 Wag","Ferrari Dino","Merc 280","Valiant","Merc 280C","Pontiac Firebird","Hornet Sportabout","Merc 450SL","Merc 450SE","Ford Pantera L","Dodge Challenger","Merc 450SLC","AMC Javelin","Maserati Bora","Chrysler Imperial","Duster 360","Camaro Z28","Cadillac Fleetwood","Lincoln Continental"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-90,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"name","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1.80284032749107,2.48622932709798],"tickmode":"array","ticktext":["-1","0","1","2"],"tickvals":[-1,0,1,2],"categoryorder":"array","categoryarray":["-1","0","1","2"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.724555643609193,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"mpg_z","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":2.06156048675734,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"title":{"text":"cyl","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"363c5f4724e7":{"x":{},"y":{},"colour":{},"ymin":{},"ymax":{},"type":"scatter"},"363c30735d01":{"x":{},"y":{},"colour":{}},"363c2ef016af":{"x":{},"y":{},"label":{}},"363c15597f3d":{"yintercept":{}}},"cur_data":"363c5f4724e7","visdat":{"363c5f4724e7":["function (y) ","x"],"363c30735d01":["function (y) ","x"],"363c2ef016af":["function (y) ","x"],"363c15597f3d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<h2 id="27cleveland点图绘制">2.7Cleveland点图绘制</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 加载数据集</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(<span style="color:#e6db74">&#34;mtcars&#34;</span>)
+</span></span><span style="display:flex;"><span>df2 <span style="color:#f92672">&lt;-</span> mtcars
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>cyl <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(df2<span style="color:#f92672">$</span>cyl)
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>name <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">rownames</span>(df2) <span style="color:#75715e">#添加一新列name</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 偏差图绘制(Deviation graphs),偏差图展示了与参考值之间的偏差。</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_z <span style="color:#f92672">&lt;-</span> (df2<span style="color:#f92672">$</span>mpg<span style="color:#f92672">-</span><span style="color:#a6e22e">mean</span>(df2<span style="color:#f92672">$</span>mpg))<span style="color:#f92672">/</span><span style="color:#a6e22e">sd</span>(df2<span style="color:#f92672">$</span>mpg)    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 相当于Zscore标准化，减均值，除标准差</span>
+</span></span><span style="display:flex;"><span>df2<span style="color:#f92672">$</span>mpg_grp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">factor</span>(<span style="color:#a6e22e">ifelse</span>(df2<span style="color:#f92672">$</span>mpg_z<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>), 
+</span></span><span style="display:flex;"><span>                      levels <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;low&#34;</span>, <span style="color:#e6db74">&#34;high&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># theme_cleveland()主题可设置为Cleveland点图样式</span>
+</span></span><span style="display:flex;"><span>p13 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdotchart</span>(df2, x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;name&#34;</span>, y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;mpg&#34;</span>,
+</span></span><span style="display:flex;"><span>                    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;cyl&#34;</span>, <span style="color:#75715e"># Color by groups                    </span>
+</span></span><span style="display:flex;"><span>                    palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#00AFBB&#34;</span>, <span style="color:#e6db74">&#34;#E7B800&#34;</span>, <span style="color:#e6db74">&#34;#FC4E07&#34;</span>), <span style="color:#75715e"># Custom color palette                    </span>
+</span></span><span style="display:flex;"><span>                    sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;descending&#34;</span>, <span style="color:#75715e"># Sort value in descending order                    </span>
+</span></span><span style="display:flex;"><span>                    rotate <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#75715e"># Rotate vertically                    </span>
+</span></span><span style="display:flex;"><span>                    dot.size <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#75715e"># Large dot size                    </span>
+</span></span><span style="display:flex;"><span>                    y.text.col <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, <span style="color:#75715e"># Color y text by groups                    </span>
+</span></span><span style="display:flex;"><span>                    ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_pubr</span>() <span style="color:#75715e"># ggplot2 theme</span>
+</span></span><span style="display:flex;"><span>                    ) <span style="color:#f92672">+</span>                    
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">theme_cleveland</span>() <span style="color:#75715e"># Add dashed grids</span>
+</span></span></code></pre></div><pre><code>## Warning: Vectorized input to `element_text()` is not officially supported.
+## Results may be unexpected or may change in future versions of ggplot2.
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p13
+</span></span></code></pre></div><img src="/post/2022-11-15-ggpubr/ggpubr包-学习笔记_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<h1 id="3导出图片">3.导出图片</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(datasets)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">data</span>(ToothGrowth)
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> ToothGrowth
+</span></span><span style="display:flex;"><span>df<span style="color:#f92672">$</span>dose <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">as.factor</span>(df<span style="color:#f92672">$</span>dose)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Box plot</span>
+</span></span><span style="display:flex;"><span>bxp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggboxplot</span>(df, x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>, y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;len&#34;</span>,
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>, palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jco&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Dot plot</span>
+</span></span><span style="display:flex;"><span>dp <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdotplot</span>(df, x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>, y <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;len&#34;</span>,
+</span></span><span style="display:flex;"><span>    color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>, palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jco&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Density plot</span>
+</span></span><span style="display:flex;"><span>dens <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggdensity</span>(df, x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;len&#34;</span>, fill <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dose&#34;</span>, palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jco&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export to pdf</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggarrange(bxp, dp, dens, ncol = 2) %&gt;%</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e"># ggexport(filename = &#34;test.pdf&#34;)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Export to png</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggarrange(bxp, dp, dens, ncol = 2) %&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#ggexport(filename = &#34;test.png&#34;)</span>
+</span></span></code></pre></div><h1 id="4常用基本绘图函数及参数">4.常用基本绘图函数及参数</h1>
+<h2 id="41基本绘图函数">4.1基本绘图函数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#gghistogram        Histogram plot #绘制直方图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggdensity        Density plot #绘制密度图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggdotplot        Dot plot #绘制点图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggdotchart        Cleveland&#39;s Dot Plots #绘制Cleveland点图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggline        Line plot #绘制线图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggbarplot        Bar plot #绘制条形/柱状图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggerrorplot        Visualizing Error #绘制误差棒图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggstripchart        Stripcharts #绘制线带图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggboxplot        Box plot #绘制箱线图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggviolin        Violin plot #绘制小提琴图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggpie        Pie chart #绘制饼图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggqqplot        QQ Plots #绘制QQ图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggscatter        Scatter plot #绘制散点图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggmaplot        MA-plot from means and log fold changes #绘制M-A图</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggpaired        Plot Paired Data #绘制配对数据</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ggecdf          Empirical cumulative density function  #绘制经验累积密度分布图</span>
+</span></span></code></pre></div><h2 id="42基本参数">4.2基本参数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggtext        Text #添加文本</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># border        Set ggplot Panel Border Line #设置画布边框线</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># grids        Add Grids to a ggplot #添加网格线</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># font        Change the Appearance of Titles and Axis Labels #设置字体类型</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># bgcolor        Change ggplot Panel Background Color #更改画布背景颜色</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># background_image        Add Background Image to ggplot2 #添加背景图片</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># facet        Facet a ggplot into Multiple Panels #设置分面</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggpar        Graphical parameters #添加画图参数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggparagraph        Draw a Paragraph of Text #添加文本段落</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggtexttable        Draw a Textual Table #添加文本表格</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggadd        Add Summary Statistics or a Geom onto a ggplot #添加基本统计结果或其他几何图形</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggarrange        Arrange Multiple ggplots #排版多个图形</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># annotate_figure          Annotate Arranged Figure #添加注释信息</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># gradient_color        Set Gradient Color #设置连续型颜色</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># xscale        Change Axis Scale: log2, log10 and more #更改坐标轴的标度</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># add_summary        Add Summary Statistics onto a ggplot #添加基本统计结果</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># set_palette        Set Color Palette #设置画板颜色</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># rotate        Rotate a ggplot Horizontally #设置图形旋转</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># rotate_axis_text        Rotate Axes Text #旋转坐标轴文本</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># stat_stars        Add Stars to a Scatter Plot #添加散点图星标</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># stat_cor        Add Correlation Coefficients with P-values to a Scatter Plot #添加相关系数</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># stat_compare_means        Add Mean Comparison P-values to a ggplot #添加平均值比较的P值</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># diff_express      Differential gene expression analysis results #内置差异分析结果数据集</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ggexport    Export ggplots # 导出图片</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># theme_transparent        Create a ggplot with Transparent Background #设置透明背景</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># theme_pubr        Publication ready theme #设置出版物主题</span>
+</span></span></code></pre></div><h1 id="5参考来源">5.参考来源</h1>
+<h3 id="1-httpswwwrdocumentationorgpackagesggpubrversions014">[1]: <a href="https://www.rdocumentation.org/packages/ggpubr/versions/0.1.4">https://www.rdocumentation.org/packages/ggpubr/versions/0.1.4</a></h3>
+<h3 id="2-httpsmpweixinqqcomszkxzkz4nbtcsj6vfimxoga">[2]: <a href="https://mp.weixin.qq.com/s/ZKxzKZ4NBTcsJ6vFimxoGA">https://mp.weixin.qq.com/s/ZKxzKZ4NBTcsJ6vFimxoGA</a></h3>
+<h3 id="3-httpblogsciencenetcnblog-3334560-1091714html">[3]: <a href="http://blog.sciencenet.cn/blog-3334560-1091714.html">http://blog.sciencenet.cn/blog-3334560-1091714.html</a></h3>
+<h3 id="4-httpsmpweixinqqcomszr2sfhvnqxhwdydz7icgrw">[4]: <a href="https://mp.weixin.qq.com/s/ZR2sfhVnqxHwDydz7iCGRw">https://mp.weixin.qq.com/s/ZR2sfhVnqxHwDydz7iCGRw</a></h3>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2022/11/15/plotly%E5%8C%85-%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96/">plotly包--交互可视化</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">2022 | <a href="https://github.com/Xwyturbo">Github</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

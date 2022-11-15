@@ -1,0 +1,11 @@
+"0","library(plotly)"
+"0","d <- diamonds[sample(nrow(diamonds), 1000), ]"
+"0","p <- ggplot(data = d, aes(x = carat, y = price)) +"
+"0","  geom_point(aes(text = paste(""Clarity:"", clarity)), size = 4) +"
+"0","  geom_smooth(aes(colour = cut, fill = cut)) + "
+"0","  facet_wrap(~ cut)"
+"2","Warning: Ignoring unknown aesthetics: text"
+"0","p=ggplotly(p)"
+"2","`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+"
+"0","p"

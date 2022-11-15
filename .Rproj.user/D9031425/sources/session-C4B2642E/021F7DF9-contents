@@ -1,0 +1,130 @@
+---
+title: plotly包--交互可视化
+author: Xwyturbo
+date: '2022-11-15'
+slug: plotly包-交互可视化
+categories:
+  - R
+tags:
+  - R Markdown
+  - plot
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```{r}
+library(tidyverse)
+library(plotly)
+p=ggplot(iris, aes(x=Sepal.Length,
+                   y=Sepal.Width, 
+                   color=Species, 
+                   shape=Species)) +
+  geom_point(size=2, alpha=0.6)
+ggplotly(p)
+```
+
+
+
+```{r}
+library(plotly)
+a=rnorm(100)
+b=sample( c(1:10) , 100 , replace=T)
+my_graph=plot_ly(x=b , y=a , 
+                 mode="markers",
+                 size=abs(a)/2 , 
+                 color=ifelse(a>0,"blue","red") ) %>%
+  layout( hovermode="closest")
+my_graph
+```
+
+
+
+
+```{r}
+library(plotly)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+p <- ggplot(data = d, aes(x = carat, y = price)) +
+  geom_point(aes(text = paste("Clarity:", clarity)), size = 4) +
+  geom_smooth(aes(colour = cut, fill = cut)) + 
+  facet_wrap(~ cut)
+p=ggplotly(p)
+p
+```
+
+
+
+```{r}
+library(plotly)
+p<-plot_ly(midwest,x=~percollege,y=~state,color=~state,type="box")
+p
+```
+
+
+
+```{r}
+library(plotly)
+graph=plot_ly(x = rnorm(500), opacity = 0.6, type ="histogram") %>%
+  add_trace(x = rnorm(500)+1) %>%
+  layout(barmode="overlay")
+graph
+```
+
+
+
+```{r}
+library(plotly)
+var1=seq(1,8)
+var2=c(0,1,4,1,8,7,5,4)
+var3=c(7,8,4,2,1,2,0,1)
+p <- plot_ly(x = var1, y = var2, 
+             type="scatter", mode="markers", 
+             fill ="tozeroy")
+p
+```
+
+
+
+```{r}
+#install.packages("webshot")
+library(networkD3)
+library(webshot)
+set.seed(101)
+links=data.frame(source=c("A","A","A","A","A","J",
+                          "B","B","C","C","D","I"),
+                 target=c("B","B","C","D","J","A",
+                          "E","F","G","H","I","I"))
+graph=simpleNetwork(links)
+saveNetwork(graph,
+            file = 'D:/wenyu/Rrojects/ggplotly/network_chart1.html',
+            selfcontained = T)
+graph
+```
+
+
+
+```{r}
+library(networkD3)
+data(MisLinks)
+data(MisNodes)
+forceNetwork(Links = MisLinks, 
+             Nodes = MisNodes,
+             Source ="source", 
+             Target ="target",
+             Value ="value", 
+             NodeID ="name",
+             Group ="group", 
+             opacity = 0.8,
+             linkDistance = JS('function(){d3.select("body").style("background-color","#DAE3F9"); 
+                               return 50;}'))
+```
+
+

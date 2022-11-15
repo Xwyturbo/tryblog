@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on My Website</title>
+    <link>/</link>
+    <description>Recent content in Home on My Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ggpubr包--学习笔记</title>
+      <link>/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>1.R包的安装及加载 #install.packages(&amp;#34;ggpubr&amp;#34;) library(ggpubr) ## Loading required package: ggplot22.常用基本图形的绘制 2.1带有均值线和地毯线的密度图 library(ggpubr) #构建数据集set.seed(1234) df &amp;lt;- data.frame( sex=factor(rep(c(&amp;#34;f&amp;#34;, &amp;#34;M&amp;#34;), each=200)), weight=c(rnorm(200, 55), rnorm(200, 58))) # 预览数据格式 head(df) ## sex weight## 1 f 56.91919## 2 f 54.36798## 3 f 55.84918## 4 f 53.27499## 5 f 55.45501## 6 f 52.86464# 绘制密度图 # rug参数添加地毯线， # add参数可以添加均值mean和中位数median， # 按性别”sex“分组标记边框线颜色和填充色，使用palette参数自定义颜色 p1 &amp;lt;- ggdensity(df, x=&amp;#34;weight&amp;#34;, add = &amp;#34;mean&amp;#34;, rug = TRUE, color = &amp;#34;sex&amp;#34;, fill = &amp;#34;sex&amp;#34;,palette = c(&amp;#34;#00AFBB&amp;#34;, &amp;#34;#E7B800&amp;#34;)) p1 p11 &amp;lt;- ggdensity(df, x=&amp;#34;weight&amp;#34;,facet.</description>
+    </item>
+    
+    <item>
+      <title>plotly包--交互可视化</title>
+      <link>/post/2022/11/15/plotly%E5%8C%85-%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/15/plotly%E5%8C%85-%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description>library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──## ✔ ggplot2 3.3.6 ✔ purrr 0.3.5 ## ✔ tibble 3.1.8 ✔ dplyr 1.0.10## ✔ tidyr 1.2.1 ✔ stringr 1.4.1 ## ✔ readr 2.1.3 ✔ forcats 0.5.2 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──## ✖ dplyr::filter() masks stats::filter()## ✖ dplyr::lag() masks stats::lag()library(plotly) ## ## Attaching package: &#39;plotly&#39;## ## The following object is masked from &#39;package:ggplot2&#39;:## ## last_plot## ## The following object is masked from &#39;package:stats&#39;:## ## filter## ## The following object is masked from &#39;package:graphics&#39;:## ## layoutp=ggplot(iris, aes(x=Sepal.</description>
+    </item>
+    
+    <item>
+      <title>简介</title>
+      <link>/about/</link>
+      <pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>以下都是大神关于hugo-ivy的介绍。
+This Hugo theme was ported from Ivy, a minimalist website generator built in Python. I don&amp;rsquo;t have time to document this theme. You have to read the source code to understand what it can do. All I can say for now is that I love it. It is clean, minimal, and responsive.
+I hope you will enjoy this theme. The source code is on Github. Happy hacking!</description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/post/2020/12/01/hello-r-markdown/</link>
+      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
+      
+      <guid>/post/2020/12/01/hello-r-markdown/</guid>
+      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
+You can embed an R code chunk like this:
+summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+    </item>
+    
+    <item>
+      <title>Another Note on A blogdown Tutorial</title>
+      <link>/note/2017/06/14/another-note/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2017/06/14/another-note/</guid>
+      <description>I just discovered an awesome tutorial on blogdown written by Alison. I have to admit this is the best blogdown tutorial I have seen so far.</description>
+    </item>
+    
+    <item>
+      <title>A Quick Note on Two Beautiful Websites</title>
+      <link>/note/2017/06/13/a-quick-note/</link>
+      <pubDate>Tue, 13 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/note/2017/06/13/a-quick-note/</guid>
+      <description>To me, the two most impressive websites based on blogdown are:
+Rob J Hyndman&amp;rsquo;s personal website. Live Free or Dichotomize by Lucy and Nick et al. I&amp;rsquo;m sure there will be more.</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Post</title>
+      <link>/post/2016/02/14/a-plain-markdown-post/</link>
+      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2016/02/14/a-plain-markdown-post/</guid>
+      <description>This sample post is mainly for blogdown users. If you do not use blogdown, you can skip the first section.
+1. Markdown or R Markdown This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
+You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
+    </item>
+    
+    <item>
+      <title>Lorem Ipsum</title>
+      <link>/post/2015/07/23/lorem-ipsum/</link>
+      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2015/07/23/lorem-ipsum/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Quisque mattis volutpat lorem vitae feugiat.</description>
+    </item>
+    
+  </channel>
+</rss>
