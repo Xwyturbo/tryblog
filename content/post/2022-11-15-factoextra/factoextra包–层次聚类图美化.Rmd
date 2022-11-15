@@ -1,0 +1,117 @@
+---
+title: factoextra包–层次聚类图美化
+author: Xwyturbo
+date: '2022-11-15'
+slug: factoextra包–层次聚类图美化
+categories:
+  - R
+  - Example
+tags:
+  - R Markdown
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+```{r}
+  library(readxl)
+  library(tidyverse)
+  library(ggpubr)
+  library(factoextra)
+  sd_dataset <- read_xlsx("D:/wenyu/Rrojects/sui_de/sui_de_1107/sd_dataset.xlsx")
+  
+  #  层次聚类，先生成距离矩阵。
+  d1 <- dist(sd_dataset[,15:28],"canberra")
+  hc7 <- hclust(d1,"ward.D2")
+  tree = as.dendrogram(hc7)
+  
+  c2 <- cutree(hc7,2)
+  table(c2)
+  plot(cut(tree, h=25)$upper, horiz=FALSE)
+  rect.hclust(hc7,2)
+
+  c3 <- cutree(hc7,3)
+  table(c3)
+  plot(cut(tree, h=25)$upper, horiz=FALSE)
+  rect.hclust(hc7,3)
+  
+  c4 <- cutree(hc7,4)
+  table(c4)
+  plot(cut(tree, h=25)$upper, horiz=FALSE)
+  rect.hclust(hc7,4)
+
+  c5 <- cutree(hc7,5)
+  table(c5)
+  plot(cut(tree, h=25)$upper, horiz=FALSE)
+  rect.hclust(hc7,5)
+  
+  #install.packages('ggdendro')
+  #install.packages('factoextra')
+  library(ggdendro)
+  library(ggplot2)
+  library(factoextra)
+  library(ggpubr)
+  library(ggsci)
+  
+  # 查询出版配色
+  pal_aaas(palette = c("default"), alpha = 1)(5)
+  pal_npg(palette = c("nrc"), alpha = 1)(8)
+  
+  ggdendrogram(hc7)
+  c5 <- cutree(hc7,5)
+  table(c5)
+  c4 <- cutree(hc7,4)
+  table(c4)
+  c3 <- cutree(hc7,3)
+  table(c3)
+  c2 <- cutree(hc7,2)
+  table(c2)
+  
+  p52 <- fviz_dend(hc7,k = 2,
+            xlab = "",
+            ylab = "Height",
+            main = "",
+            k_colors = c("#3B4992FF","#EE0000FF"),
+            ggtheme = theme_bw())
+  p52
+  
+  p53 <- fviz_dend(hc7,k = 3,
+                   xlab = "",
+                   ylab = "Height",
+                   main = "",
+                   k_colors = c("#3B4992FF","#EE0000FF","#008B45FF"),
+                   ggtheme = theme_bw())
+  p53
+  
+  p54 <- fviz_dend(hc7,k = 4,
+                   xlab = "",
+                   ylab = "Height",
+                   main = "",
+                   k_colors = c("#3B4992FF","#EE0000FF",
+                                "#008B45FF","#631879FF"),
+                   ggtheme = theme_bw())
+  p54
+  
+  p55 <- fviz_dend(hc7,k = 5,
+                   xlab = "",
+                   ylab = "Height",
+                   main = "",
+                   k_colors = c("#3B4992FF","#F39B7FFF",
+                                "#EE0000FF",
+                                "#008280FF","#631879FF"),
+                   ggtheme = theme_bw())
+  p55
+  
+  # ggexport(p52,filename = "聚类谱系图2.tiff",
+  #          width = 2000,height = 2000,
+  #          res = 600)   ##批量注释Ctrl+shift+C 
+```
+
