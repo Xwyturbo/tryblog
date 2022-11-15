@@ -6,7 +6,29 @@
     <description>Recent content in Example on My Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="/categories/example/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/example/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>高级计量Stata--第十二章多值选择模型</title>
+      <link>/post/2022/11/15/%E9%AB%98%E7%BA%A7%E8%AE%A1%E9%87%8Fstata-%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%A4%9A%E5%80%BC%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/15/%E9%AB%98%E7%BA%A7%E8%AE%A1%E9%87%8Fstata-%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%A4%9A%E5%80%BC%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B/</guid>
+      <description>以下内容全部搬运自陈强老师的《高级计量经济学及Stata应用》
+12.1多项logit与多项Probit。 以数据集nomocc2.dta为例，进行多项logit与多项probit估计。首先加载数据，进行描述性统计分析。
+## 加载数据use &amp;#34;D:\cnusisters\cyl\20221108\nomocc2.dta&amp;#34;(1982 General Social Survey)## 查看数据特征. sumVariable | Obs Mean Std. Dev. Min Max-------------+---------------------------------------------------------occ | 337 3.397626 1.367913 1 5white | 337 .9169139 .2764227 0 1ed | 337 13.09496 2.946427 3 20exper | 337 20.50148 13.95936 2 66## 查看前六行观测值. list in 1/6+-----------------------------+| occ white ed exper ||-----------------------------|1. | Menial 1 11 3 |2.</description>
+    </item>
+    
+    <item>
+      <title>高级计量经济学及stata应用--学习笔记</title>
+      <link>/post/2022/11/15/%E9%AB%98%E7%BA%A7%E8%AE%A1%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8F%8Astata%E5%BA%94%E7%94%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/15/%E9%AB%98%E7%BA%A7%E8%AE%A1%E9%87%8F%E7%BB%8F%E6%B5%8E%E5%AD%A6%E5%8F%8Astata%E5%BA%94%E7%94%A8-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>第十二章 多值选择模型
+12.1多项logit与多项Probit。
+以数据集nomocc2.dta为例，进行多项logit与多项probit估计。首先加载数据，进行描述性统计分析。</description>
+    </item>
+    
     <item>
       <title>Another Note on A blogdown Tutorial</title>
       <link>/note/2017/06/14/another-note/</link>
