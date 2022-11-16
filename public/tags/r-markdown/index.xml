@@ -6,7 +6,25 @@
     <description>Recent content in R Markdown on My Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>factoextra&#43;ggpubr&#43;ggplot2-层次聚类图添加标签及箱线图</title>
+      <link>/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/</link>
+      <pubDate>Wed, 16 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/</guid>
+      <description>1.数据的预处理 library(readxl) library(readxl) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──## ✔ ggplot2 3.3.6 ✔ purrr 0.3.5 ## ✔ tibble 3.1.8 ✔ dplyr 1.0.10## ✔ tidyr 1.2.1 ✔ stringr 1.4.1 ## ✔ readr 2.1.3 ✔ forcats 0.5.2 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──## ✖ dplyr::filter() masks stats::filter()## ✖ dplyr::lag() masks stats::lag() library(bruceR) ## ## bruceR (version 0.8.9)## BRoadly Useful Convenient and Efficient R functions## ## Packages also loaded:## √ dplyr √ emmeans √ ggplot2## √ tidyr √ effectsize √ ggtext## √ stringr √ performance √ cowplot## √ forcats √ lmerTest √ see## √ data.</description>
+    </item>
+    
+    <item>
+      <title>factoextra包–层次聚类图美化</title>
+      <link>/post/2022/11/15/factoextra%E5%8C%85%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E7%BE%8E%E5%8C%96/</link>
+      <pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/15/factoextra%E5%8C%85%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E7%BE%8E%E5%8C%96/</guid>
+      <description>library(readxl) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──## ✔ ggplot2 3.3.6 ✔ purrr 0.3.5 ## ✔ tibble 3.1.8 ✔ dplyr 1.0.10## ✔ tidyr 1.2.1 ✔ stringr 1.4.1 ## ✔ readr 2.1.3 ✔ forcats 0.5.2 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──## ✖ dplyr::filter() masks stats::filter()## ✖ dplyr::lag() masks stats::lag() library(ggpubr) library(factoextra) ## Warning: package &amp;#39;factoextra&amp;#39; was built under R version 4.2.2 ## Welcome! Want to learn more?</description>
+    </item>
+    
     <item>
       <title>ggpubr包--学习笔记</title>
       <link>/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>

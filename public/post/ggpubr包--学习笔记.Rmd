@@ -1,5 +1,5 @@
 ---
-title: "ggpubr包--学习笔记"
+title: "ggpubr包-学习笔记"
 author: 
   - 徐文禹
 date: "`r Sys.Date()`"

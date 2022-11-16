@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>factoextra包–层次聚类图美化 - My Website</title>
+    <meta property="og:title" content="factoextra包–层次聚类图美化 - My Website">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/">My Website</a></h1>
+
+<p class="tagline">小徐同学参考了谢益辉大神的blog，也尝试记录自己的生活</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">Home</a></li>
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/categories/">Categories</a></li>
+  
+  <li><a href="/tags/">Tags</a></li>
+  
+  <li><a href="/index.xml">Subscribe</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>factoextra包–层次聚类图美化</h1>
+
+<h3>Xwyturbo
+  /  2022-11-15</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(readxl)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(tidyverse)
+</span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(factoextra)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: package &#39;factoextra&#39; was built under R version 4.2.2
+</code></pre><pre tabindex="0"><code>## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  sd_dataset <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_xlsx</span>(<span style="color:#e6db74">&#34;D:/wenyu/Rrojects/sui_de/sui_de_1107/sd_dataset.xlsx&#34;</span>)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#  层次聚类，先生成距离矩阵。</span>
+</span></span><span style="display:flex;"><span>  d1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dist</span>(sd_dataset[,<span style="color:#ae81ff">15</span><span style="color:#f92672">:</span><span style="color:#ae81ff">28</span>],<span style="color:#e6db74">&#34;canberra&#34;</span>)
+</span></span><span style="display:flex;"><span>  hc7 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">hclust</span>(d1,<span style="color:#e6db74">&#34;ward.D2&#34;</span>)
+</span></span><span style="display:flex;"><span>  tree <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.dendrogram</span>(hc7)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  c2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c2)
+</span></span></code></pre></div><pre tabindex="0"><code>## c2
+##   1   2 
+## 244 421
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rect.hclust</span>(hc7,<span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c3)
+</span></span></code></pre></div><pre tabindex="0"><code>## c3
+##   1   2   3 
+## 244 149 272
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rect.hclust</span>(hc7,<span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-2.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c4 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c4)
+</span></span></code></pre></div><pre tabindex="0"><code>## c4
+##   1   2   3   4 
+## 244 149 193  79
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rect.hclust</span>(hc7,<span style="color:#ae81ff">4</span>)
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-3.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c5)
+</span></span></code></pre></div><pre tabindex="0"><code>## c5
+##   1   2   3   4   5 
+## 108 149 136 193  79
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">rect.hclust</span>(hc7,<span style="color:#ae81ff">5</span>)
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-4.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#75715e">#install.packages(&#39;ggdendro&#39;)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#install.packages(&#39;factoextra&#39;)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(ggdendro)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: package &#39;ggdendro&#39; was built under R version 4.2.2
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(factoextra)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">library</span>(ggsci)
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># 查询出版配色</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pal_aaas</span>(palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;default&#34;</span>), alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">5</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;#3B4992FF&#34; &#34;#EE0000FF&#34; &#34;#008B45FF&#34; &#34;#631879FF&#34; &#34;#008280FF&#34;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">pal_npg</span>(palette <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;nrc&#34;</span>), alpha <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)(<span style="color:#ae81ff">8</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>## [1] &#34;#E64B35FF&#34; &#34;#4DBBD5FF&#34; &#34;#00A087FF&#34; &#34;#3C5488FF&#34; &#34;#F39B7FFF&#34; &#34;#8491B4FF&#34;
+## [7] &#34;#91D1C2FF&#34; &#34;#DC0000FF&#34;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#a6e22e">ggdendrogram</span>(hc7)
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-5.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c5 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c5)
+</span></span></code></pre></div><pre tabindex="0"><code>## c5
+##   1   2   3   4   5 
+## 108 149 136 193  79
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c4 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c4)
+</span></span></code></pre></div><pre tabindex="0"><code>## c4
+##   1   2   3   4 
+## 244 149 193  79
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c3)
+</span></span></code></pre></div><pre tabindex="0"><code>## c3
+##   1   2   3 
+## 244 149 272
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  c2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc7,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">table</span>(c2)
+</span></span></code></pre></div><pre tabindex="0"><code>## c2
+##   1   2 
+## 244 421
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p52 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc7,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>            xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>            ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>            main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>            k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>),
+</span></span><span style="display:flex;"><span>            ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p52
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-6.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p53 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc7,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>                   xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                   main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,<span style="color:#e6db74">&#34;#008B45FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                   ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p53
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-7.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p54 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc7,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>                   xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                   main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,
+</span></span><span style="display:flex;"><span>                                <span style="color:#e6db74">&#34;#008B45FF&#34;</span>,<span style="color:#e6db74">&#34;#631879FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                   ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p54
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-8.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p55 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc7,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>,
+</span></span><span style="display:flex;"><span>                   xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                   main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                   k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#F39B7FFF&#34;</span>,
+</span></span><span style="display:flex;"><span>                                <span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,
+</span></span><span style="display:flex;"><span>                                <span style="color:#e6db74">&#34;#008280FF&#34;</span>,<span style="color:#e6db74">&#34;#631879FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                   ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  p55
+</span></span></code></pre></div><img src="/post/2022-11-15-factoextra/factoextra包–层次聚类图美化_files/figure-html/unnamed-chunk-1-9.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>  <span style="color:#75715e"># ggexport(p52,filename = &#34;聚类谱系图2.tiff&#34;,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#          width = 2000,height = 2000,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">#          res = 600)   ##批量注释Ctrl+shift+C </span>
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">ggpubr包--学习笔记</a></span>
+  <span class="nav-next"><a href="/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/">factoextra&#43;ggpubr&#43;ggplot2-层次聚类图添加标签及箱线图</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">2022 | <a href="https://github.com/Xwyturbo">Github</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

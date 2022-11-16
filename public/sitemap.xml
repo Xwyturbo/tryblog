@@ -3,15 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2022-11-15T00:00:00+00:00</lastmod>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/post/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/r/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/r-markdown/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2022-11-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/example/</loc>
     <lastmod>2022-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>/post/2022/11/15/factoextra%E5%8C%85%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E7%BE%8E%E5%8C%96/</loc>
     <lastmod>2022-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>/post/2022/11/15/ggpubr%E5%8C%85-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-11-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/plot/</loc>
@@ -20,19 +38,7 @@
     <loc>/post/2022/11/15/plotly%E5%8C%85-%E4%BA%A4%E4%BA%92%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
     <lastmod>2022-11-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/post/</loc>
-    <lastmod>2022-11-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/r/</loc>
-    <lastmod>2022-11-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/r-markdown/</loc>
-    <lastmod>2022-11-15T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/stata/</loc>
-    <lastmod>2022-11-15T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2022-11-15T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/post/2022/11/15/%E9%AB%98%E7%BA%A7%E8%AE%A1%E9%87%8Fstata-%E7%AC%AC%E5%8D%81%E4%BA%8C%E7%AB%A0%E5%A4%9A%E5%80%BC%E9%80%89%E6%8B%A9%E6%A8%A1%E5%9E%8B/</loc>
