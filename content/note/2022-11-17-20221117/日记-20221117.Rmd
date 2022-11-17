@@ -1,0 +1,30 @@
+---
+title: 日记-20221117
+author: Xwyturbo
+date: '2022-11-17'
+slug: 日记-20221117
+categories: []
+tags: []
+---
+
+
+
+> Xwyturbo emo了，与我徐某人无关
+
+#  风霜压我两三年，
+
+
+#  我迎风霜折纸鸢，
+
+
+#  心中还是有怨言，
+
+
+#  麻了麻了早冬眠。
+
+
+```{r,echo=FALSE}
+##D:\try\blog\pics_wenyu
+knitr::include_graphics("D:/try/blog/pics_wenyu/纸鸢.jpg")
+```
+
