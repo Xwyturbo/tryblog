@@ -1,0 +1,43 @@
+---
+title: voronoiTreemap包-绘制沃罗诺伊树图
+author: Xwxyturbo
+date: '2022-11-20'
+slug: voronoiTreemap包-绘制沃罗诺伊树图
+categories:
+  - Example
+tags:
+  - plot
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(voronoiTreemap)
+library(tidyverse)
+library(writexl)
+library(readxl)
+df <- read_xlsx("D:/wenyu/Rrojects/vTreemap/df.xlsx")
+df %>% 
+  knitr::kable()
+
+solar_json <- vt_export_json(vt_input_from_df(df, 
+                                            scaleToPerc = FALSE,
+                                            hierachyVar0 = "h1",
+                                            hierachyVar1 = "h2", 
+                                            hierachyVar2 = "h3", 
+                                            colorVar = "color", 
+                                            weightVar="prod",
+                                            labelVar = "codes"))
+vt_d3(solar_json,label = T, 
+      color_border = "#000000",
+      legend = TRUE, legend_title = "Urban Economic Region",
+      seed = 2,
+      size_border = "1px")
+```
+
