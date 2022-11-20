@@ -24,8 +24,8 @@ tags: []
 
 ![纸鸢](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/纸鸢.jpg){width=50%}
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, out.width="40%"}
 ##D:\try\blog\pics_wenyu
-knitr::include_graphics("D:/try/blog/pics_wenyu/纸鸢.jpg")
+knitr::include_graphics("D:/xwy/Pictures/Saved Pictures/纸鸢2.png")
 ```
 
