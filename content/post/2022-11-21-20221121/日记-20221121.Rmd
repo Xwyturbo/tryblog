@@ -1,0 +1,211 @@
+---
+title: 日记-20221121
+author: Xwyturbo
+date: '2022-11-21'
+slug: 日记-20221121
+categories:
+  - R
+tags: []
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+> 不开心的是小徐的工作被重置了，但师门的人都是非常nice的。
+
+```{r, echo=FALSE , out.width="50%"}
+knitr::include_graphics("D:/try/blog/pics_wenyu/test.png")
+```
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(writexl)
+library(ggplot2)
+library(ggpubr)
+library(patchwork)
+library(factoextra)
+suide <- read_xls("D:/suide_1121/excel/land_clip_check_Statistics1_TableToExcel_1.xls")
+str(suide)
+#  长表转宽表
+suide01 <- suide %>% 
+  pivot_wider(names_from = DLMC, values_from = SUM_TBMJ, values_fill = 0)
+str(suide01)
+sd_data <- tibble(XZQDM = suide01$XZQDM,
+                  科教文卫用地 = suide01$科教文卫用地,
+                  交通运输用地 = suide01$公路用地+suide01$交通服务场站用地+
+                    suide01$铁路用地+suide01$管道运输用地,
+                  林地 = suide01$其他林地+suide01$灌木林地+suide01$乔木林地,
+                  园地 = suide01$果园+suide01$其他园地,
+                  水域及水利设施 = suide01$河流水面+
+                    suide01$内陆滩涂+suide01$水工建筑用地+suide01$沟渠+
+                    suide01$坑塘水面+suide01$养殖坑塘,
+                  旱地 = suide01$旱地,
+                  草地 = suide01$其他草地+suide01$天然牧草地+suide01$人工牧草地,
+                  水浇地 = suide01$水浇地,
+                  设施农用地 = suide01$设施农用地,
+                  矿业用地 = suide01$采矿用地,
+                  公共服务用地 = suide01$机关团体新闻出版用地+suide01$公用设施用地+
+                    suide01$公园与绿地+suide01$广场用地,
+                  商服用地 = suide01$商业服务业设施用地,
+                  工业用地 = suide01$工业用地,
+                  物流仓储用地 = suide01$物流仓储用地)
+
+sd_14_mianji <- sd_data[,2:15]
+#  计算每个村庄每种地类的占村庄全部用地的比重。
+sd1 <- sd_14_mianji/rowSums(sd_14_mianji)
+#  计算县域范围内每种地类占全部用地的比重
+sd2 <- colSums(sd_14_mianji)/sum(sd_14_mianji)
+
+sd_14_quweishang <- tibble(
+  x1 = sd1$科教文卫用地/sd2[1],
+  x2 = sd1$交通运输用地/sd2[2],
+  x3 = sd1$林地/sd2[3],
+  x4 = sd1$园地/sd2[4],
+  x5 = sd1$水域及水利设施/sd2[5],
+  x6 = sd1$旱地/sd2[6],
+  x7 = sd1$草地/sd2[7],
+  x8 = sd1$水浇地/sd2[8],
+  x9 = sd1$设施农用地/sd2[9],
+  x10 = sd1$矿业用地/sd2[10],
+  x11 = sd1$公共服务用地/sd2[11],
+  x12 = sd1$商服用地 /sd2[12],
+  x13 = sd1$工业用地/sd2[13],
+  x14 = sd1$物流仓储用地/sd2[14]
+)
+
+sd <- cbind(sd_data,sd_14_quweishang)
+str(sd)
+#   write_xlsx(sd,"14种地类面积与区位商的分村计算结果.xlsx")
+#  宽表转长表
+
+sd_mjlong = sd[,1:15] %>%
+  pivot_longer(-XZQDM, names_to = "地类", values_to = "面积/公亩")
+str(sd_mjlong)
+# 14种地类面积箱线图
+p1 <- ggboxplot(sd_mjlong, x="地类", y="面积/公亩",fill ="地类",
+                palette = "igv",
+                sorting = "descending",                   
+                rotate = TRUE,                    
+                ggtheme = theme_bw())+
+  theme(legend.position = "none")
+p1
+# ggexport(p1,filename = "pics/14种地类面积箱线图.png",
+#          width = 4000,height = 2000,
+#          res = 600)
+
+#  宽表转长表
+
+sd_qws<-sd[,c(1,16:29)]
+names(sd_qws) <- c("XZQDM",
+  "科教文卫用地","交通运输用地","林地",
+  "园地","水域及水利设施","旱地","草地",
+  "水浇地","设施农用地","矿业用地",
+  "公共服务用地","商服用地",
+  "工业用地","物流仓储用地")
+sd_qwslonger = sd_qws %>%
+  pivot_longer(-XZQDM, names_to = "地类", values_to = "区位商")
+str(sd_qwslonger)
+
+p2 <- ggboxplot(sd_qwslonger, x="地类", y="区位商",fill ="地类",
+                palette = "igv",
+                sorting = "descending",                   
+                rotate = TRUE,                    
+                ggtheme = theme_bw())+
+  theme(legend.position = "none")+
+  geom_hline(yintercept = 1,linetype = 2,
+             color = "red")+
+  ylim(0,10)
+p2
+# ggexport(p2,filename = "pics/14种地类区位商箱线图.png",
+#          width = 4000,height = 2000,
+#          res = 600)
+
+
+#  层次聚类
+d <- dist(sd[,16:29],"canberra")
+hc <- hclust(d,"ward.D2")
+tree = as.dendrogram(hc)
+
+c2 <- cutree(hc,2)
+table(c2)
+plot(cut(tree, h=25)$upper, horiz=FALSE)
+rect.hclust(hc,2)
+
+c3 <- cutree(hc,3)
+table(c3)
+plot(cut(tree, h=25)$upper, horiz=FALSE)
+rect.hclust(hc,3)
+
+c4 <- cutree(hc,4)
+table(c4)
+plot(cut(tree, h=25)$upper, horiz=FALSE)
+rect.hclust(hc,4)
+
+p42 <- fviz_dend(hc,k = 2,
+                 xlab = "村庄",
+                 ylab = "Height",
+                 main = "",
+                 rect = TRUE,
+                 k_colors = c("#3B4992FF","#EE0000FF"),
+                 ggtheme = theme_bw())+
+  annotate("text", x = 45, y = 37,label = "村庄数:93",colour= "#3B4992FF",size=3)+
+  annotate("text", x = 220, y = 37,label = "村庄数:248",colour= "#EE0000FF",size=3)
+p42
+
+# ggexport(p42,filename = "pics/聚类谱系图2.png",
+#          width = 3400,height = 3000,
+#          res = 600)
+
+p43 <- fviz_dend(hc,k = 3,
+                 xlab = "村庄",
+                 ylab = "Height",
+                 main = "",
+                 rect = TRUE,
+                 k_colors = c("#3B4992FF","#EE0000FF","#008B45FF"),
+                 ggtheme = theme_bw())+
+  annotate("text", x = 45, y = 37,label = "村庄数:93",colour= "#3B4992FF",
+           size = 3)+
+  annotate("text", x = 170, y = 30,label = "村庄数:152",colour= "#EE0000FF",
+           size = 3)+
+  annotate("text", x = 290, y = 30,label = "村庄数:96",colour= "#008B45FF",
+           size = 3)
+p43
+
+# ggexport(p43,filename = "pics/聚类谱系图3.png",
+#          width = 3400,height = 3000,
+#          res = 600)
+
+p44 <- fviz_dend(hc,k = 4,
+                 xlab = "村庄",
+                 ylab = "Height",
+                 main = "",
+                 rect = TRUE,
+                 k_colors = c("#3B4992FF","#631879FF","#EE0000FF","#008B45FF"),
+                 ggtheme = theme_bw())+
+  annotate("text", x = 65, y = 24,label = "村庄数:60",colour= "#631879FF",
+           size = 3)+
+  annotate("text", x = 170, y = 30,label = "村庄数:152",colour= "#EE0000FF",
+           size = 3)+
+  annotate("text",  x = 290, y = 30,label = "村庄数:96",colour= "#008B45FF",
+           size = 3)+
+  annotate("text", x = 18, y = 26,label = "村庄数:33",colour = "#3B4992FF",
+           size = 3)
+p44
+
+# ggexport(p44,filename = "pics/聚类谱系图3.png",
+#          width = 3400,height = 3000,
+#          res = 600)
+
+#  "#3B4992FF","#631879FF","#EE0000FF"，"#008B45FF" 蓝色、紫色、红色、绿色 
+
+#  "#3B4992FF","#EE0000FF","#008B45FF" 蓝色、红色、绿色
+
+#  "#3B4992FF","#EE0000FF";  蓝色、红色
+```
+

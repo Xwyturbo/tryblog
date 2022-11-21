@@ -6,7 +6,17 @@
     <description>Recent content in R on My Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>日记-20221121</title>
+      <link>/post/2022/11/21/%E6%97%A5%E8%AE%B0-20221121/</link>
+      <pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/11/21/%E6%97%A5%E8%AE%B0-20221121/</guid>
+      <description>不开心的是小徐的工作被重置了，但师门的人都是非常nice的。
+library(readxl) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──## ✔ ggplot2 3.3.6 ✔ purrr 0.3.5 ## ✔ tibble 3.1.8 ✔ dplyr 1.0.10## ✔ tidyr 1.2.1 ✔ stringr 1.4.1 ## ✔ readr 2.1.3 ✔ forcats 0.5.2 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──## ✖ dplyr::filter() masks stats::filter()## ✖ dplyr::lag() masks stats::lag() library(writexl) library(ggplot2) library(ggpubr) library(patchwork) library(factoextra) ## Warning: package &amp;#39;factoextra&amp;#39; was built under R version 4.</description>
+    </item>
+    
     <item>
       <title>factoextra&#43;ggpubr&#43;ggplot2-层次聚类图添加标签及箱线图</title>
       <link>/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/</link>

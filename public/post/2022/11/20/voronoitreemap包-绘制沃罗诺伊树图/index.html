@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>voronoiTreemap包-绘制沃罗诺伊树图 - My Website</title>
+    <meta property="og:title" content="voronoiTreemap包-绘制沃罗诺伊树图 - My Website">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/">My Website</a></h1>
+
+<p class="tagline">小徐同学参考了谢益辉大神的blog，也尝试记录自己的生活</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">Home</a></li>
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/categories/">Categories</a></li>
+  
+  <li><a href="/tags/">Tags</a></li>
+  
+  <li><a href="/index.xml">Subscribe</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>voronoiTreemap包-绘制沃罗诺伊树图</h1>
+
+<h3>Xwxyturbo
+  /  2022-11-20</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/d3vt/d3.v4.min.js"></script>
+<script src="/rmarkdown-libs/d3vt/plugins/d3-voronoi-treemap.js"></script>
+<script src="/rmarkdown-libs/d3vt/plugins/d3-voronoi-map.js"></script>
+<script src="/rmarkdown-libs/d3vt/plugins/d3-weighted-voronoi.js"></script>
+<script src="/rmarkdown-libs/d3vt/plugins/seedrandom.min.js"></script>
+<script src="/rmarkdown-libs/d3vt-binding/d3vt.js"></script>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(voronoiTreemap)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span></code></pre></div><pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+</code></pre>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(writexl)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(readxl)
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_xlsx</span>(<span style="color:#e6db74">&#34;D:/wenyu/Rrojects/vTreemap/df.xlsx&#34;</span>)
+</span></span><span style="display:flex;"><span>df <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  knitr<span style="color:#f92672">::</span><span style="color:#a6e22e">kable</span>()
+</span></span></code></pre></div><table>
+<thead>
+<tr>
+<th style="text-align:left">h1</th>
+<th style="text-align:left">h2</th>
+<th style="text-align:left">h3</th>
+<th style="text-align:left">color</th>
+<th style="text-align:right">weight</th>
+<th style="text-align:left">codes</th>
+<th style="text-align:left">province</th>
+<th style="text-align:right">prod</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Anhui</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.35</td>
+<td style="text-align:left">AH</td>
+<td style="text-align:left">AH</td>
+<td style="text-align:right">95.20</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Beijing</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">5.05</td>
+<td style="text-align:left">BJ</td>
+<td style="text-align:left">BJ</td>
+<td style="text-align:right">110.30</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Chongqing</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.80</td>
+<td style="text-align:left">CQ</td>
+<td style="text-align:left">CQ</td>
+<td style="text-align:right">82.90</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Fujian</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">4.88</td>
+<td style="text-align:left">FJ</td>
+<td style="text-align:left">FJ</td>
+<td style="text-align:right">106.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Guangdong</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">4.66</td>
+<td style="text-align:left">GD</td>
+<td style="text-align:left">GD</td>
+<td style="text-align:right">101.70</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Gansu</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">1.72</td>
+<td style="text-align:left">GS</td>
+<td style="text-align:left">GS</td>
+<td style="text-align:right">37.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Guangxi</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">4.04</td>
+<td style="text-align:left">GX</td>
+<td style="text-align:left">GX</td>
+<td style="text-align:right">88.10</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Guizhou</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.11</td>
+<td style="text-align:left">GZ</td>
+<td style="text-align:left">GZ</td>
+<td style="text-align:right">67.90</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Henan</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">3.55</td>
+<td style="text-align:left">HA</td>
+<td style="text-align:left">HA</td>
+<td style="text-align:right">77.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Hubei</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.19</td>
+<td style="text-align:left">HB</td>
+<td style="text-align:left">HB</td>
+<td style="text-align:right">91.40</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Hebei</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">3.25</td>
+<td style="text-align:left">HE</td>
+<td style="text-align:left">HE</td>
+<td style="text-align:right">71.00</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Hainan</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.56</td>
+<td style="text-align:left">HI</td>
+<td style="text-align:left">HI</td>
+<td style="text-align:right">77.80</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">Nodata</td>
+<td style="text-align:left">Hongkonng</td>
+<td style="text-align:left">#D35C79</td>
+<td style="text-align:right">0.01</td>
+<td style="text-align:left">HK</td>
+<td style="text-align:left">HK</td>
+<td style="text-align:right">0.01</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Heilongjiang</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">0.52</td>
+<td style="text-align:left">HL</td>
+<td style="text-align:left">HL</td>
+<td style="text-align:right">11.40</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Hunan</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.75</td>
+<td style="text-align:left">HN</td>
+<td style="text-align:left">HN</td>
+<td style="text-align:right">81.90</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Jilin</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">0.65</td>
+<td style="text-align:left">JL</td>
+<td style="text-align:left">JL</td>
+<td style="text-align:right">14.10</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Jiangsu</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.47</td>
+<td style="text-align:left">JS</td>
+<td style="text-align:left">JS</td>
+<td style="text-align:right">97.50</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Jiangxi</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">4.03</td>
+<td style="text-align:left">JX</td>
+<td style="text-align:left">JX</td>
+<td style="text-align:right">88.00</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Liaoning</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">1.44</td>
+<td style="text-align:left">LN</td>
+<td style="text-align:left">LN</td>
+<td style="text-align:right">31.50</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">Nodata</td>
+<td style="text-align:left">Macao</td>
+<td style="text-align:left">#D35C79</td>
+<td style="text-align:right">0.01</td>
+<td style="text-align:left">MO</td>
+<td style="text-align:left">MO</td>
+<td style="text-align:right">0.01</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">InnerMongoriaIM</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">1.36</td>
+<td style="text-align:left">NM</td>
+<td style="text-align:left">NM</td>
+<td style="text-align:right">29.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Ningxia</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">2.49</td>
+<td style="text-align:left">NX</td>
+<td style="text-align:left">NX</td>
+<td style="text-align:right">54.30</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Qinghai</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">1.95</td>
+<td style="text-align:left">QH</td>
+<td style="text-align:left">QH</td>
+<td style="text-align:right">42.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Sichuan</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.81</td>
+<td style="text-align:left">SC</td>
+<td style="text-align:left">SC</td>
+<td style="text-align:right">83.10</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Shandong</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.13</td>
+<td style="text-align:left">SD</td>
+<td style="text-align:left">SD</td>
+<td style="text-align:right">90.10</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Shanghai</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.20</td>
+<td style="text-align:left">SH</td>
+<td style="text-align:left">SH</td>
+<td style="text-align:right">91.60</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Shanxi</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">2.60</td>
+<td style="text-align:left">SN</td>
+<td style="text-align:left">SX</td>
+<td style="text-align:right">29.30</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Shaanxi</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">1.34</td>
+<td style="text-align:left">SX</td>
+<td style="text-align:left">SX</td>
+<td style="text-align:right">56.80</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Tianjing</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">4.37</td>
+<td style="text-align:left">TJ</td>
+<td style="text-align:left">TJ</td>
+<td style="text-align:right">95.50</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">Nodata</td>
+<td style="text-align:left">Taiwan</td>
+<td style="text-align:left">#D35C79</td>
+<td style="text-align:right">0.01</td>
+<td style="text-align:left">TW</td>
+<td style="text-align:left">TW</td>
+<td style="text-align:right">0.01</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">North</td>
+<td style="text-align:left">Xingjiang</td>
+<td style="text-align:left">#009593</td>
+<td style="text-align:right">3.76</td>
+<td style="text-align:left">XJ</td>
+<td style="text-align:left">XJ</td>
+<td style="text-align:right">82.10</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Xizang</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">0.55</td>
+<td style="text-align:left">XZ</td>
+<td style="text-align:left">XZ</td>
+<td style="text-align:right">11.90</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">South</td>
+<td style="text-align:left">Yunnan</td>
+<td style="text-align:left">#E4D1B3</td>
+<td style="text-align:right">3.87</td>
+<td style="text-align:left">YN</td>
+<td style="text-align:left">YN</td>
+<td style="text-align:right">84.40</td>
+</tr>
+<tr>
+<td style="text-align:left">Total</td>
+<td style="text-align:left">East</td>
+<td style="text-align:left">Zhejiang</td>
+<td style="text-align:left">#CED7BA</td>
+<td style="text-align:right">4.54</td>
+<td style="text-align:left">ZJ</td>
+<td style="text-align:left">ZJ</td>
+<td style="text-align:right">99.10</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>solar_json <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">vt_export_json</span>(<span style="color:#a6e22e">vt_input_from_df</span>(df, 
+</span></span><span style="display:flex;"><span>                                            scaleToPerc <span style="color:#f92672">=</span> <span style="color:#66d9ef">FALSE</span>,
+</span></span><span style="display:flex;"><span>                                            hierachyVar0 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;h1&#34;</span>,
+</span></span><span style="display:flex;"><span>                                            hierachyVar1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;h2&#34;</span>, 
+</span></span><span style="display:flex;"><span>                                            hierachyVar2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;h3&#34;</span>, 
+</span></span><span style="display:flex;"><span>                                            colorVar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;color&#34;</span>, 
+</span></span><span style="display:flex;"><span>                                            weightVar<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;prod&#34;</span>,
+</span></span><span style="display:flex;"><span>                                            labelVar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;codes&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">vt_d3</span>(solar_json,label <span style="color:#f92672">=</span> T, 
+</span></span><span style="display:flex;"><span>      color_border <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#000000&#34;</span>,
+</span></span><span style="display:flex;"><span>      legend <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>, legend_title <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Urban Economic Region&#34;</span>,
+</span></span><span style="display:flex;"><span>      seed <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>      size_border <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1px&#34;</span>)
+</span></span></code></pre></div><div id="htmlwidget-1" style="width:672px;height:480px;" class="d3vt html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"data":"{\"name\":\"Total\",\"children\":[{\"name\":\"East\",\"color\":\"#CED7BA\",\"children\":[{\"name\":\"Anhui\",\"weight\":95.2,\"color\":\"#CED7BA\",\"code\":\"AH\"},{\"name\":\"Henan\",\"weight\":77.6,\"color\":\"#CED7BA\",\"code\":\"HA\"},{\"name\":\"Hubei\",\"weight\":91.4,\"color\":\"#CED7BA\",\"code\":\"HB\"},{\"name\":\"Jiangsu\",\"weight\":97.5,\"color\":\"#CED7BA\",\"code\":\"JS\"},{\"name\":\"Shandong\",\"weight\":90.1,\"color\":\"#CED7BA\",\"code\":\"SD\"},{\"name\":\"Shanghai\",\"weight\":91.6,\"color\":\"#CED7BA\",\"code\":\"SH\"},{\"name\":\"Zhejiang\",\"weight\":99.1,\"color\":\"#CED7BA\",\"code\":\"ZJ\"}]},{\"name\":\"North\",\"color\":\"#009593\",\"children\":[{\"name\":\"Beijing\",\"weight\":110.3,\"color\":\"#009593\",\"code\":\"BJ\"},{\"name\":\"Gansu\",\"weight\":37.6,\"color\":\"#009593\",\"code\":\"GS\"},{\"name\":\"Hebei\",\"weight\":71,\"color\":\"#009593\",\"code\":\"HE\"},{\"name\":\"Heilongjiang\",\"weight\":11.4,\"color\":\"#009593\",\"code\":\"HL\"},{\"name\":\"Jilin\",\"weight\":14.1,\"color\":\"#009593\",\"code\":\"JL\"},{\"name\":\"Liaoning\",\"weight\":31.5,\"color\":\"#009593\",\"code\":\"LN\"},{\"name\":\"InnerMongoriaIM\",\"weight\":29.6,\"color\":\"#009593\",\"code\":\"NM\"},{\"name\":\"Ningxia\",\"weight\":54.3,\"color\":\"#009593\",\"code\":\"NX\"},{\"name\":\"Qinghai\",\"weight\":42.6,\"color\":\"#009593\",\"code\":\"QH\"},{\"name\":\"Shanxi\",\"weight\":29.3,\"color\":\"#009593\",\"code\":\"SN\"},{\"name\":\"Shaanxi\",\"weight\":56.8,\"color\":\"#009593\",\"code\":\"SX\"},{\"name\":\"Tianjing\",\"weight\":95.5,\"color\":\"#009593\",\"code\":\"TJ\"},{\"name\":\"Xingjiang\",\"weight\":82.1,\"color\":\"#009593\",\"code\":\"XJ\"}]},{\"name\":\"South\",\"color\":\"#E4D1B3\",\"children\":[{\"name\":\"Chongqing\",\"weight\":82.9,\"color\":\"#E4D1B3\",\"code\":\"CQ\"},{\"name\":\"Fujian\",\"weight\":106.6,\"color\":\"#E4D1B3\",\"code\":\"FJ\"},{\"name\":\"Guangdong\",\"weight\":101.7,\"color\":\"#E4D1B3\",\"code\":\"GD\"},{\"name\":\"Guangxi\",\"weight\":88.1,\"color\":\"#E4D1B3\",\"code\":\"GX\"},{\"name\":\"Guizhou\",\"weight\":67.9,\"color\":\"#E4D1B3\",\"code\":\"GZ\"},{\"name\":\"Hainan\",\"weight\":77.8,\"color\":\"#E4D1B3\",\"code\":\"HI\"},{\"name\":\"Hunan\",\"weight\":81.9,\"color\":\"#E4D1B3\",\"code\":\"HN\"},{\"name\":\"Jiangxi\",\"weight\":88,\"color\":\"#E4D1B3\",\"code\":\"JX\"},{\"name\":\"Sichuan\",\"weight\":83.1,\"color\":\"#E4D1B3\",\"code\":\"SC\"},{\"name\":\"Xizang\",\"weight\":11.9,\"color\":\"#E4D1B3\",\"code\":\"XZ\"},{\"name\":\"Yunnan\",\"weight\":84.4,\"color\":\"#E4D1B3\",\"code\":\"YN\"}]},{\"name\":\"Nodata\",\"color\":\"#D35C79\",\"children\":[{\"name\":\"Hongkonng\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"HK\"},{\"name\":\"Macao\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"MO\"},{\"name\":\"Taiwan\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"TW\"}]}]}","options":{"legend":true,"title":null,"legend_title":"Urban Economic Region","seed":2,"footer":null,"label":true},"colors":{"circle":"#aaaaaa","border":"#000000","label":"#000000"},"size":{"border":"1px","border_hover":"3px","circle":"2px"}},"evals":[],"jsHooks":[]}</script>
+
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2022/11/16/factoextra-ggpubr-ggplot2-%E5%B1%82%E6%AC%A1%E8%81%9A%E7%B1%BB%E5%9B%BE%E6%B7%BB%E5%8A%A0%E6%A0%87%E7%AD%BE%E5%8F%8A%E7%AE%B1%E7%BA%BF%E5%9B%BE/">factoextra&#43;ggpubr&#43;ggplot2-层次聚类图添加标签及箱线图</a></span>
+  <span class="nav-next"><a href="/post/2022/11/21/%E6%97%A5%E8%AE%B0-20221121/">日记-20221121</a> &rarr;</span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">2022 | <a href="https://github.com/Xwyturbo">Github</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

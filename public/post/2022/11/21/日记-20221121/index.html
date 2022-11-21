@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>日记-20221121 - My Website</title>
+    <meta property="og:title" content="日记-20221121 - My Website">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+
+    
+      
+      <meta property="description" content="不开心的是小徐的工作被重置了，但师门的人都是非常nice的。
+">
+      <meta property="og:description" content="不开心的是小徐的工作被重置了，但师门的人都是非常nice的。
+">
+      
+    
+
+    
+    
+
+    
+
+    
+    
+
+
+<link href='//cdn.bootcss.com/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+
+  </head>
+
+  
+  <body class="post">
+    <header class="masthead">
+      <h1><a href="/">My Website</a></h1>
+
+<p class="tagline">小徐同学参考了谢益辉大神的blog，也尝试记录自己的生活</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/">Home</a></li>
+  
+  <li><a href="/about/">About</a></li>
+  
+  <li><a href="/categories/">Categories</a></li>
+  
+  <li><a href="/tags/">Tags</a></li>
+  
+  <li><a href="/index.xml">Subscribe</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>日记-20221121</h1>
+
+<h3>Xwyturbo
+  /  2022-11-21</h3>
+<hr>
+
+
+      </header>
+
+
+
+
+
+<blockquote>
+<p>不开心的是小徐的工作被重置了，但师门的人都是非常nice的。</p>
+</blockquote>
+<img src="../../../pics_wenyu/test.png" width="50%" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(readxl)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(tidyverse)
+</span></span></code></pre></div><pre tabindex="0"><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(writexl)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggplot2)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(ggpubr)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(patchwork)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">library</span>(factoextra)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: package &#39;factoextra&#39; was built under R version 4.2.2
+</code></pre><pre tabindex="0"><code>## Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>suide <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">read_xls</span>(<span style="color:#e6db74">&#34;D:/suide_1121/excel/land_clip_check_Statistics1_TableToExcel_1.xls&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(suide)
+</span></span></code></pre></div><pre tabindex="0"><code>## tibble [6,104 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ XZQDM   : chr [1:6104] &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; ...
+##  $ DLMC    : chr [1:6104] &#34;城镇村道路用地&#34; &#34;城镇住宅用地&#34; &#34;公路用地&#34; &#34;灌木林地&#34; ...
+##  $ SUM_TBMJ: num [1:6104] 123.8 4061.3 83.2 24.9 1843.8 ...
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#  长表转宽表</span>
+</span></span><span style="display:flex;"><span>suide01 <span style="color:#f92672">&lt;-</span> suide <span style="color:#f92672">%&gt;%</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_wider</span>(names_from <span style="color:#f92672">=</span> DLMC, values_from <span style="color:#f92672">=</span> SUM_TBMJ, values_fill <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(suide01)
+</span></span></code></pre></div><pre tabindex="0"><code>## tibble [341 × 39] (S3: tbl_df/tbl/data.frame)
+##  $ XZQDM               : chr [1:341] &#34;610826100003&#34; &#34;610826100200&#34; &#34;610826100201&#34; &#34;610826100202&#34; ...
+##  $ 城镇村道路用地      : num [1:341] 124 1571 673 0 459 ...
+##  $ 城镇住宅用地        : num [1:341] 4061.33 11198.35 11740.22 0 6.21 ...
+##  $ 公路用地            : num [1:341] 83.2 182.6 396.6 0 247.4 ...
+##  $ 灌木林地            : num [1:341] 24.9 83.8 295.4 3175.7 1401.5 ...
+##  $ 果园                : num [1:341] 1844 588 3530 21528 1743 ...
+##  $ 旱地                : num [1:341] 126 117 1238 2420 839 ...
+##  $ 河流水面            : num [1:341] 347.2 1001.7 1873.8 76.8 589 ...
+##  $ 机关团体新闻出版用地: num [1:341] 3.53 525.99 142.96 0 149.42 ...
+##  $ 科教文卫用地        : num [1:341] 409 502 1687 0 298 ...
+##  $ 裸土地              : num [1:341] 9.64 0 10.72 27.7 68.2 ...
+##  $ 农村道路            : num [1:341] 23.5 45.4 408.7 541.2 168.8 ...
+##  $ 其他草地            : num [1:341] 755 418 4900 12248 1721 ...
+##  $ 其他林地            : num [1:341] 124 365 6512 7206 5305 ...
+##  $ 设施农用地          : num [1:341] 6.02 0 66.03 7.6 25.28 ...
+##  $ 特殊用地            : num [1:341] 294 110 652 0 223 ...
+##  $ 天然牧草地          : num [1:341] 127.2 44.9 3599.3 7680.4 5272.8 ...
+##  $ 公用设施用地        : num [1:341] 0 157.02 25.92 0 4.83 ...
+##  $ 公园与绿地          : num [1:341] 0 155.36 5.94 0 0 ...
+##  $ 交通服务场站用地    : num [1:341] 0 236.79 7.97 0 30.75 ...
+##  $ 空闲地              : num [1:341] 0 144 0 0 62 ...
+##  $ 内陆滩涂            : num [1:341] 0 2103 377 0 734 ...
+##  $ 农村宅基地          : num [1:341] 0 21.4 262 987.5 4490.9 ...
+##  $ 乔木林地            : num [1:341] 0 61 81.8 628.1 0 ...
+##  $ 商业服务业设施用地  : num [1:341] 0 733 306 0 415 ...
+##  $ 水工建筑用地        : num [1:341] 0 335.5 64.3 0 172.6 ...
+##  $ 水浇地              : num [1:341] 0 10.1 0 0 0 ...
+##  $ 工业用地            : num [1:341] 0 0 110 0 217 ...
+##  $ 沟渠                : num [1:341] 0 0 33.1 0 0 ...
+##  $ 广场用地            : num [1:341] 0 0 48.7 0 4.29 ...
+##  $ 其他园地            : num [1:341] 0 0 1419 328 0 ...
+##  $ 坑塘水面            : num [1:341] 0 0 0 18.1 14.6 ...
+##  $ 铁路用地            : num [1:341] 0 0 0 0 5.57 ...
+##  $ 物流仓储用地        : num [1:341] 0 0 0 0 64 ...
+##  $ 采矿用地            : num [1:341] 0 0 0 0 0 ...
+##  $ 裸岩石砾地          : num [1:341] 0 0 0 0 0 ...
+##  $ 管道运输用地        : num [1:341] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ 养殖坑塘            : num [1:341] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ 人工牧草地          : num [1:341] 0 0 0 0 0 0 0 0 0 0 ...
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>sd_data <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(XZQDM <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>XZQDM,
+</span></span><span style="display:flex;"><span>                  科教文卫用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>科教文卫用地,
+</span></span><span style="display:flex;"><span>                  交通运输用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>公路用地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>交通服务场站用地<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                    suide01<span style="color:#f92672">$</span>铁路用地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>管道运输用地,
+</span></span><span style="display:flex;"><span>                  林地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>其他林地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>灌木林地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>乔木林地,
+</span></span><span style="display:flex;"><span>                  园地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>果园<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>其他园地,
+</span></span><span style="display:flex;"><span>                  水域及水利设施 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>河流水面<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                    suide01<span style="color:#f92672">$</span>内陆滩涂<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>水工建筑用地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>沟渠<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                    suide01<span style="color:#f92672">$</span>坑塘水面<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>养殖坑塘,
+</span></span><span style="display:flex;"><span>                  旱地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>旱地,
+</span></span><span style="display:flex;"><span>                  草地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>其他草地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>天然牧草地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>人工牧草地,
+</span></span><span style="display:flex;"><span>                  水浇地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>水浇地,
+</span></span><span style="display:flex;"><span>                  设施农用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>设施农用地,
+</span></span><span style="display:flex;"><span>                  矿业用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>采矿用地,
+</span></span><span style="display:flex;"><span>                  公共服务用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>机关团体新闻出版用地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>公用设施用地<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>                    suide01<span style="color:#f92672">$</span>公园与绿地<span style="color:#f92672">+</span>suide01<span style="color:#f92672">$</span>广场用地,
+</span></span><span style="display:flex;"><span>                  商服用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>商业服务业设施用地,
+</span></span><span style="display:flex;"><span>                  工业用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>工业用地,
+</span></span><span style="display:flex;"><span>                  物流仓储用地 <span style="color:#f92672">=</span> suide01<span style="color:#f92672">$</span>物流仓储用地)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sd_14_mianji <span style="color:#f92672">&lt;-</span> sd_data[,<span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  计算每个村庄每种地类的占村庄全部用地的比重。</span>
+</span></span><span style="display:flex;"><span>sd1 <span style="color:#f92672">&lt;-</span> sd_14_mianji<span style="color:#f92672">/</span><span style="color:#a6e22e">rowSums</span>(sd_14_mianji)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  计算县域范围内每种地类占全部用地的比重</span>
+</span></span><span style="display:flex;"><span>sd2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">colSums</span>(sd_14_mianji)<span style="color:#f92672">/</span><span style="color:#a6e22e">sum</span>(sd_14_mianji)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sd_14_quweishang <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">tibble</span>(
+</span></span><span style="display:flex;"><span>  x1 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>科教文卫用地<span style="color:#f92672">/</span>sd2[1],
+</span></span><span style="display:flex;"><span>  x2 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>交通运输用地<span style="color:#f92672">/</span>sd2[2],
+</span></span><span style="display:flex;"><span>  x3 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>林地<span style="color:#f92672">/</span>sd2[3],
+</span></span><span style="display:flex;"><span>  x4 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>园地<span style="color:#f92672">/</span>sd2[4],
+</span></span><span style="display:flex;"><span>  x5 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>水域及水利设施<span style="color:#f92672">/</span>sd2[5],
+</span></span><span style="display:flex;"><span>  x6 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>旱地<span style="color:#f92672">/</span>sd2[6],
+</span></span><span style="display:flex;"><span>  x7 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>草地<span style="color:#f92672">/</span>sd2[7],
+</span></span><span style="display:flex;"><span>  x8 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>水浇地<span style="color:#f92672">/</span>sd2[8],
+</span></span><span style="display:flex;"><span>  x9 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>设施农用地<span style="color:#f92672">/</span>sd2[9],
+</span></span><span style="display:flex;"><span>  x10 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>矿业用地<span style="color:#f92672">/</span>sd2[10],
+</span></span><span style="display:flex;"><span>  x11 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>公共服务用地<span style="color:#f92672">/</span>sd2[11],
+</span></span><span style="display:flex;"><span>  x12 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>商服用地 <span style="color:#f92672">/</span>sd2[12],
+</span></span><span style="display:flex;"><span>  x13 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>工业用地<span style="color:#f92672">/</span>sd2[13],
+</span></span><span style="display:flex;"><span>  x14 <span style="color:#f92672">=</span> sd1<span style="color:#f92672">$</span>物流仓储用地<span style="color:#f92672">/</span>sd2[14]
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sd <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cbind</span>(sd_data,sd_14_quweishang)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(sd)
+</span></span></code></pre></div><pre tabindex="0"><code>## &#39;data.frame&#39;:	341 obs. of  29 variables:
+##  $ XZQDM         : chr  &#34;610826100003&#34; &#34;610826100200&#34; &#34;610826100201&#34; &#34;610826100202&#34; ...
+##  $ 科教文卫用地  : num  409 502 1687 0 298 ...
+##  $ 交通运输用地  : num  83.2 419.4 404.5 0 283.8 ...
+##  $ 林地          : num  149 510 6889 11010 6707 ...
+##  $ 园地          : num  1844 588 4950 21856 1743 ...
+##  $ 水域及水利设施: num  347.2 3439.9 2348.4 94.9 1510.4 ...
+##  $ 旱地          : num  126 117 1238 2420 839 ...
+##  $ 草地          : num  882 463 8499 19928 6994 ...
+##  $ 水浇地        : num  0 10.1 0 0 0 ...
+##  $ 设施农用地    : num  6.02 0 66.03 7.6 25.28 ...
+##  $ 矿业用地      : num  0 0 0 0 0 ...
+##  $ 公共服务用地  : num  3.53 838.37 223.53 0 158.54 ...
+##  $ 商服用地      : num  0 733 306 0 415 ...
+##  $ 工业用地      : num  0 0 110 0 217 ...
+##  $ 物流仓储用地  : num  0 0 0 0 64 ...
+##  $ x1            : num  182.5 113.1 108.4 0 26.5 ...
+##  $ x2            : num  3.53 9 2.47 0 2.41 ...
+##  $ x3            : num  0.259 0.448 1.727 1.333 2.333 ...
+##  $ x4            : num  2.353 0.379 0.91 1.941 0.445 ...
+##  $ x5            : num  6.186 30.956 6.027 0.118 5.38 ...
+##  $ x6            : num  0.1576 0.0744 0.2238 0.2114 0.2105 ...
+##  $ x7            : num  0.567 0.15 0.787 0.892 0.899 ...
+##  $ x8            : num  0 0.118 0 0 0 ...
+##  $ x9            : num  2.097 0 3.315 0.184 1.761 ...
+##  $ x10           : num  0 0 0 0 0 ...
+##  $ x11           : num  1.46 174.87 13.3 0 13.09 ...
+##  $ x12           : num  0 109.7 13.1 0 24.6 ...
+##  $ x13           : num  0 0 5.42 0 14.8 ...
+##  $ x14           : num  0 0 0 0 42.9 ...
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e">#   write_xlsx(sd,&#34;14种地类面积与区位商的分村计算结果.xlsx&#34;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  宽表转长表</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sd_mjlong <span style="color:#f92672">=</span> sd[,<span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#ae81ff">15</span>] <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(<span style="color:#f92672">-</span>XZQDM, names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;地类&#34;</span>, values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;面积/公亩&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(sd_mjlong)
+</span></span></code></pre></div><pre tabindex="0"><code>## tibble [4,774 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ XZQDM    : chr [1:4774] &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; ...
+##  $ 地类     : chr [1:4774] &#34;科教文卫用地&#34; &#34;交通运输用地&#34; &#34;林地&#34; &#34;园地&#34; ...
+##  $ 面积/公亩: num [1:4774] 409 83.2 149 1843.8 347.2 ...
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># 14种地类面积箱线图</span>
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggboxplot</span>(sd_mjlong, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;地类&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;面积/公亩&#34;</span>,fill <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;地类&#34;</span>,
+</span></span><span style="display:flex;"><span>                palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;igv&#34;</span>,
+</span></span><span style="display:flex;"><span>                sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;descending&#34;</span>,                   
+</span></span><span style="display:flex;"><span>                rotate <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,                    
+</span></span><span style="display:flex;"><span>                ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span>(legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;none&#34;</span>)
+</span></span><span style="display:flex;"><span>p1
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggexport(p1,filename = &#34;pics/14种地类面积箱线图.png&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          width = 4000,height = 2000,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          res = 600)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  宽表转长表</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sd_qws<span style="color:#f92672">&lt;-</span>sd[,<span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">16</span><span style="color:#f92672">:</span><span style="color:#ae81ff">29</span>)]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">names</span>(sd_qws) <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;XZQDM&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;科教文卫用地&#34;</span>,<span style="color:#e6db74">&#34;交通运输用地&#34;</span>,<span style="color:#e6db74">&#34;林地&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;园地&#34;</span>,<span style="color:#e6db74">&#34;水域及水利设施&#34;</span>,<span style="color:#e6db74">&#34;旱地&#34;</span>,<span style="color:#e6db74">&#34;草地&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;水浇地&#34;</span>,<span style="color:#e6db74">&#34;设施农用地&#34;</span>,<span style="color:#e6db74">&#34;矿业用地&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;公共服务用地&#34;</span>,<span style="color:#e6db74">&#34;商服用地&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;工业用地&#34;</span>,<span style="color:#e6db74">&#34;物流仓储用地&#34;</span>)
+</span></span><span style="display:flex;"><span>sd_qwslonger <span style="color:#f92672">=</span> sd_qws <span style="color:#f92672">%&gt;%</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">pivot_longer</span>(<span style="color:#f92672">-</span>XZQDM, names_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;地类&#34;</span>, values_to <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;区位商&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">str</span>(sd_qwslonger)
+</span></span></code></pre></div><pre tabindex="0"><code>## tibble [4,774 × 3] (S3: tbl_df/tbl/data.frame)
+##  $ XZQDM : chr [1:4774] &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; &#34;610826100003&#34; ...
+##  $ 地类  : chr [1:4774] &#34;科教文卫用地&#34; &#34;交通运输用地&#34; &#34;林地&#34; &#34;园地&#34; ...
+##  $ 区位商: num [1:4774] 182.459 3.532 0.259 2.353 6.186 ...
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">ggboxplot</span>(sd_qwslonger, x<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;地类&#34;</span>, y<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;区位商&#34;</span>,fill <span style="color:#f92672">=</span><span style="color:#e6db74">&#34;地类&#34;</span>,
+</span></span><span style="display:flex;"><span>                palette <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;igv&#34;</span>,
+</span></span><span style="display:flex;"><span>                sorting <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;descending&#34;</span>,                   
+</span></span><span style="display:flex;"><span>                rotate <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,                    
+</span></span><span style="display:flex;"><span>                ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">theme</span>(legend.position <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;none&#34;</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">geom_hline</span>(yintercept <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,linetype <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>             color <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;red&#34;</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ylim</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>p2
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: Removed 105 rows containing non-finite values (stat_boxplot).
+</code></pre><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-2.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggexport(p2,filename = &#34;pics/14种地类区位商箱线图.png&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          width = 4000,height = 2000,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          res = 600)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  层次聚类</span>
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">dist</span>(sd[,<span style="color:#ae81ff">16</span><span style="color:#f92672">:</span><span style="color:#ae81ff">29</span>],<span style="color:#e6db74">&#34;canberra&#34;</span>)
+</span></span><span style="display:flex;"><span>hc <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">hclust</span>(d,<span style="color:#e6db74">&#34;ward.D2&#34;</span>)
+</span></span><span style="display:flex;"><span>tree <span style="color:#f92672">=</span> <span style="color:#a6e22e">as.dendrogram</span>(hc)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c2 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc,<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">table</span>(c2)
+</span></span></code></pre></div><pre tabindex="0"><code>## c2
+##   1   2 
+##  93 248
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rect.hclust</span>(hc,<span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-3.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>c3 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc,<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">table</span>(c3)
+</span></span></code></pre></div><pre tabindex="0"><code>## c3
+##   1   2   3 
+##  93  96 152
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rect.hclust</span>(hc,<span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-4.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>c4 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">cutree</span>(hc,<span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">table</span>(c4)
+</span></span></code></pre></div><pre tabindex="0"><code>## c4
+##   1   2   3   4 
+##  33  60  96 152
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#a6e22e">plot</span>(<span style="color:#a6e22e">cut</span>(tree, h<span style="color:#f92672">=</span><span style="color:#ae81ff">25</span>)<span style="color:#f92672">$</span>upper, horiz<span style="color:#f92672">=</span><span style="color:#66d9ef">FALSE</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">rect.hclust</span>(hc,<span style="color:#ae81ff">4</span>)
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-5.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p42 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>                 xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄&#34;</span>,
+</span></span><span style="display:flex;"><span>                 ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                 main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                 rect <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>                 k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                 ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">37</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:93&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">220</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">37</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:248&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,size<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p42
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-6.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggexport(p42,filename = &#34;pics/聚类谱系图2.png&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          width = 3400,height = 3000,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          res = 600)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p43 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>                 xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄&#34;</span>,
+</span></span><span style="display:flex;"><span>                 ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                 main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                 rect <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>                 k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,<span style="color:#e6db74">&#34;#008B45FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                 ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">37</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:93&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">170</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:152&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">290</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:96&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#008B45FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p43
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-7.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggexport(p43,filename = &#34;pics/聚类谱系图3.png&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          width = 3400,height = 3000,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          res = 600)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p44 <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">fviz_dend</span>(hc,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>,
+</span></span><span style="display:flex;"><span>                 xlab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄&#34;</span>,
+</span></span><span style="display:flex;"><span>                 ylab <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Height&#34;</span>,
+</span></span><span style="display:flex;"><span>                 main <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>                 rect <span style="color:#f92672">=</span> <span style="color:#66d9ef">TRUE</span>,
+</span></span><span style="display:flex;"><span>                 k_colors <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span>(<span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,<span style="color:#e6db74">&#34;#631879FF&#34;</span>,<span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,<span style="color:#e6db74">&#34;#008B45FF&#34;</span>),
+</span></span><span style="display:flex;"><span>                 ggtheme <span style="color:#f92672">=</span> <span style="color:#a6e22e">theme_bw</span>())<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">65</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">24</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:60&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#631879FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">170</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:152&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#EE0000FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>,  x <span style="color:#f92672">=</span> <span style="color:#ae81ff">290</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:96&#34;</span>,colour<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#008B45FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)<span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">annotate</span>(<span style="color:#e6db74">&#34;text&#34;</span>, x <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>, y <span style="color:#f92672">=</span> <span style="color:#ae81ff">26</span>,label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;村庄数:33&#34;</span>,colour <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;#3B4992FF&#34;</span>,
+</span></span><span style="display:flex;"><span>           size <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>)
+</span></span></code></pre></div><pre tabindex="0"><code>## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## &#34;none&#34;)` instead.
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span>p44
+</span></span></code></pre></div><img src="/post/2022-11-21-20221121/日记-20221121_files/figure-html/unnamed-chunk-2-8.png" width="672" />
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-r" data-lang="r"><span style="display:flex;"><span><span style="color:#75715e"># ggexport(p44,filename = &#34;pics/聚类谱系图3.png&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          width = 3400,height = 3000,</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#          res = 600)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  &#34;#3B4992FF&#34;,&#34;#631879FF&#34;,&#34;#EE0000FF&#34;，&#34;#008B45FF&#34; 蓝色、紫色、红色、绿色 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  &#34;#3B4992FF&#34;,&#34;#EE0000FF&#34;,&#34;#008B45FF&#34; 蓝色、红色、绿色</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#  &#34;#3B4992FF&#34;,&#34;#EE0000FF&#34;;  蓝色、红色</span>
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+<nav class="post-nav">
+  <span class="nav-prev">&larr; <a href="/post/2022/11/20/voronoitreemap%E5%8C%85-%E7%BB%98%E5%88%B6%E6%B2%83%E7%BD%97%E8%AF%BA%E4%BC%8A%E6%A0%91%E5%9B%BE/">voronoiTreemap包-绘制沃罗诺伊树图</a></span>
+  <span class="nav-next"></span>
+</nav>
+
+
+
+
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script async src="//yihui.org/js/center-img.js"></script>
+
+  
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/tex.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+  
+  <hr>
+  <div class="copyright">2022 | <a href="https://github.com/Xwyturbo">Github</a></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
