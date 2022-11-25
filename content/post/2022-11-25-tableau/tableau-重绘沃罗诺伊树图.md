@@ -106,9 +106,13 @@ p
 <div id="htmlwidget-1" style="width:1000px;height:480px;" class="d3vt html-widget"></div>
 <script type="application/json" data-for="htmlwidget-1">{"x":{"data":"{\"name\":\"Total\",\"children\":[{\"name\":\"East\",\"color\":\"#CED7BA\",\"children\":[{\"name\":\"Anhui\",\"weight\":95.2,\"color\":\"#CED7BA\",\"code\":\"AH\"},{\"name\":\"Henan\",\"weight\":77.6,\"color\":\"#CED7BA\",\"code\":\"HA\"},{\"name\":\"Hubei\",\"weight\":91.4,\"color\":\"#CED7BA\",\"code\":\"HB\"},{\"name\":\"Jiangsu\",\"weight\":97.5,\"color\":\"#CED7BA\",\"code\":\"JS\"},{\"name\":\"Shandong\",\"weight\":90.1,\"color\":\"#CED7BA\",\"code\":\"SD\"},{\"name\":\"Shanghai\",\"weight\":91.6,\"color\":\"#CED7BA\",\"code\":\"SH\"},{\"name\":\"Zhejiang\",\"weight\":99.1,\"color\":\"#CED7BA\",\"code\":\"ZJ\"}]},{\"name\":\"North\",\"color\":\"#009593\",\"children\":[{\"name\":\"Beijing\",\"weight\":110.3,\"color\":\"#009593\",\"code\":\"BJ\"},{\"name\":\"Gansu\",\"weight\":37.6,\"color\":\"#009593\",\"code\":\"GS\"},{\"name\":\"Hebei\",\"weight\":71,\"color\":\"#009593\",\"code\":\"HE\"},{\"name\":\"Heilongjiang\",\"weight\":11.4,\"color\":\"#009593\",\"code\":\"HL\"},{\"name\":\"Jilin\",\"weight\":14.1,\"color\":\"#009593\",\"code\":\"JL\"},{\"name\":\"Liaoning\",\"weight\":31.5,\"color\":\"#009593\",\"code\":\"LN\"},{\"name\":\"InnerMongoriaIM\",\"weight\":29.6,\"color\":\"#009593\",\"code\":\"NM\"},{\"name\":\"Ningxia\",\"weight\":54.3,\"color\":\"#009593\",\"code\":\"NX\"},{\"name\":\"Qinghai\",\"weight\":42.6,\"color\":\"#009593\",\"code\":\"QH\"},{\"name\":\"Shanxi\",\"weight\":29.3,\"color\":\"#009593\",\"code\":\"SN\"},{\"name\":\"Shaanxi\",\"weight\":56.8,\"color\":\"#009593\",\"code\":\"SX\"},{\"name\":\"Tianjing\",\"weight\":95.5,\"color\":\"#009593\",\"code\":\"TJ\"},{\"name\":\"Xingjiang\",\"weight\":82.1,\"color\":\"#009593\",\"code\":\"XJ\"}]},{\"name\":\"South\",\"color\":\"#E4D1B3\",\"children\":[{\"name\":\"Chongqing\",\"weight\":82.9,\"color\":\"#E4D1B3\",\"code\":\"CQ\"},{\"name\":\"Fujian\",\"weight\":106.6,\"color\":\"#E4D1B3\",\"code\":\"FJ\"},{\"name\":\"Guangdong\",\"weight\":101.7,\"color\":\"#E4D1B3\",\"code\":\"GD\"},{\"name\":\"Guangxi\",\"weight\":88.1,\"color\":\"#E4D1B3\",\"code\":\"GX\"},{\"name\":\"Guizhou\",\"weight\":67.9,\"color\":\"#E4D1B3\",\"code\":\"GZ\"},{\"name\":\"Hainan\",\"weight\":77.8,\"color\":\"#E4D1B3\",\"code\":\"HI\"},{\"name\":\"Hunan\",\"weight\":81.9,\"color\":\"#E4D1B3\",\"code\":\"HN\"},{\"name\":\"Jiangxi\",\"weight\":88,\"color\":\"#E4D1B3\",\"code\":\"JX\"},{\"name\":\"Sichuan\",\"weight\":83.1,\"color\":\"#E4D1B3\",\"code\":\"SC\"},{\"name\":\"Xizang\",\"weight\":11.9,\"color\":\"#E4D1B3\",\"code\":\"XZ\"},{\"name\":\"Yunnan\",\"weight\":84.4,\"color\":\"#E4D1B3\",\"code\":\"YN\"}]},{\"name\":\"Nodata\",\"color\":\"#D35C79\",\"children\":[{\"name\":\"Hongkonng\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"HK\"},{\"name\":\"Macao\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"MO\"},{\"name\":\"Taiwan\",\"weight\":0.01,\"color\":\"#D35C79\",\"code\":\"TW\"}]}]}","options":{"legend":true,"title":null,"legend_title":"Urban Economic Region","seed":3,"footer":null,"label":true},"colors":{"circle":"#aaaaaa","border":"#000000","label":"#000000"},"size":{"border":"1px","border_hover":"3px","circle":"2px"}},"evals":[],"jsHooks":[]}</script>
 
-## 使用tableau绘制沃罗诺伊树图需要先转换数据(网址：<https://observablehq.com/@ladataviz/wip-voronoi-data-generator>)，登录这个网站，然后转换数据。
+## 使用tableau绘制沃罗诺伊树图需要先转换数据，登录下面这个网站，然后转换数据。
 
-<img src="../../../resources/_gen/images/01.png" width="846" />
+网址：<https://observablehq.com/@ladataviz/wip-voronoi-data-generator>
+
+![01](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/01.png)
+
+![](https://github.com/Xwyturbo/R_draw/blob/main/01.png)<!-- -->
 
 ## 注意，上传的数据最好是csv格式,调整对应字段，然后下载数据！
 
@@ -116,7 +120,8 @@ p
 > size by相当于具体的变量值，对应示例数据的prod字段.
 > group by字段相当于分组字段，对应示例数据的h2字段.。
 
-<img src="../../../resources/_gen/images/02.png" width="846" />
+![02](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/02.png)
+![](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/02.png)<!-- -->
 
 ## 打开tableau，添加数据，转到工作表。
 
@@ -125,7 +130,9 @@ p
 > 下面需要增加标签,再将将度量窗口的x拖拽至列功能区，将*度量*修改为平均值，同时修改为*双轴*。
 > 修改标记窗口下，平均值(x)(2)相关参数，选择文本，窗口下只保留*split字段*、*value*字段(value字段是从度量窗口拖拽过来的，还需要调整为平均值)。至此，图的基本雏形就有了，下面调整字体啥的，不做过多赘述，试试就可以了。
 
-<img src="../../../resources/_gen/images/03.png" width="646" />
+![03](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/03.png)
+
+![](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/03.png)<!-- -->
 
 ## 参考链接
 

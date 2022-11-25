@@ -46,10 +46,13 @@ p <- vt_d3(solar_json,label = T,
 p
 ```
 
-##  使用tableau绘制沃罗诺伊树图需要先转换数据(网址：<https://observablehq.com/@ladataviz/wip-voronoi-data-generator>)，登录这个网站，然后转换数据。
+##  使用tableau绘制沃罗诺伊树图需要先转换数据，登录下面这个网站，然后转换数据。
+网址：<https://observablehq.com/@ladataviz/wip-voronoi-data-generator>
+
+![01](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/01.png)
 
 ```{r, echo=FALSE}
-knitr::include_graphics("D:/try/blog/resources/_gen/images/01.png")
+knitr::include_graphics("https://github.com/Xwyturbo/R_draw/blob/main/01.png")
 ```
 
 ##  注意，上传的数据最好是csv格式,调整对应字段，然后下载数据！
@@ -57,8 +60,9 @@ knitr::include_graphics("D:/try/blog/resources/_gen/images/01.png")
 > size by相当于具体的变量值，对应示例数据的prod字段.
 > group by字段相当于分组字段，对应示例数据的h2字段.。
 
+![02](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/02.png)
 ```{r, echo=FALSE}
-knitr::include_graphics("D:/try/blog/resources/_gen/images/02.png")
+knitr::include_graphics("https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/02.png")
 ```
 
 
@@ -68,8 +72,10 @@ knitr::include_graphics("D:/try/blog/resources/_gen/images/02.png")
 > 下面需要增加标签,再将将度量窗口的x拖拽至列功能区，将*度量*修改为平均值，同时修改为*双轴*。
 > 修改标记窗口下，平均值(x)(2)相关参数，选择文本，窗口下只保留*split字段*、*value*字段(value字段是从度量窗口拖拽过来的，还需要调整为平均值)。至此，图的基本雏形就有了，下面调整字体啥的，不做过多赘述，试试就可以了。
 
+![03](https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/03.png)
+
 ```{r, echo=FALSE}
-knitr::include_graphics("D:/try/blog/resources/_gen/images/03.png")
+knitr::include_graphics("https://github.com/Xwyturbo/tryblog/tree/main/pics_wenyu/03.png")
 ```
 
 ##  参考链接
