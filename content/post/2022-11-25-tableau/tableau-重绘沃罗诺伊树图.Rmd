@@ -1,0 +1,76 @@
+---
+title: tableau-重绘沃罗诺伊树图
+author: Xwyturbo
+date: '2022-11-25'
+slug: tableau-重绘沃罗诺伊树图
+categories:
+  - Example
+tags: []
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+> 
+
+##  使用voronoiTreemap画图很快，但是有很多参数难以调整。
+
+```{r}
+library(voronoiTreemap)
+library(tidyverse)
+library(writexl)
+library(readxl)
+library(ggpubr)
+df <- read_xlsx("D:/wenyu/Rrojects/vTreemap/df.xlsx")
+df %>% 
+  knitr::kable()
+
+solar_json <- vt_export_json(vt_input_from_df(df, 
+                                            scaleToPerc = FALSE,
+                                            hierachyVar0 = "h1",
+                                            hierachyVar1 = "h2", 
+                                            hierachyVar2 = "h3", 
+                                            colorVar = "color", 
+                                            weightVar="prod",
+                                            labelVar = "codes"))
+p <- vt_d3(solar_json,label = T, 
+      color_border = "#000000",width = 1000,
+      legend = TRUE, legend_title = "Urban Economic Region",
+      seed = 3,
+      size_border = "1px")
+p
+```
+
+##  使用tableau绘制沃罗诺伊树图需要先转换数据(网址：<https://observablehq.com/@ladataviz/wip-voronoi-data-generator>)，登录这个网站，然后转换数据。
+
+```{r, echo=FALSE}
+knitr::include_graphics("D:/try/blog/resources/_gen/images/01.png")
+```
+
+##  注意，上传的数据最好是csv格式,调整对应字段，然后下载数据！
+> split by相当于观测值的编码，对应示例数据的province字段.
+> size by相当于具体的变量值，对应示例数据的prod字段.
+> group by字段相当于分组字段，对应示例数据的h2字段.。
+
+```{r, echo=FALSE}
+knitr::include_graphics("D:/try/blog/resources/_gen/images/02.png")
+```
+
+
+##  打开tableau，添加数据，转到工作表。
+> 首先将*path*字段拖拽至维度窗口，接着在标记窗口，选择多边形，从维度窗口，依次将*group*、*split*、*path*字段拖拽到标记窗口下，前两个字段调整为*颜色*，*path*字段调整为路径。
+> 将度量窗口的x、y，分布拖拽至列功能区、在行功能区，将*度量*修改为平均值，这个时候图就出来了。
+> 下面需要增加标签,再将将度量窗口的x拖拽至列功能区，将*度量*修改为平均值，同时修改为*双轴*。
+> 修改标记窗口下，平均值(x)(2)相关参数，选择文本，窗口下只保留*split字段*、*value*字段(value字段是从度量窗口拖拽过来的，还需要调整为平均值)。至此，图的基本雏形就有了，下面调整字体啥的，不做过多赘述，试试就可以了。
+
+```{r, echo=FALSE}
+knitr::include_graphics("D:/try/blog/resources/_gen/images/03.png")
+```
+
+##  参考链接
+> [1] <https://www.jianshu.com/p/c094ac0cb19d>.	
